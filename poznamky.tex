@@ -45,7 +45,7 @@
 
 \title{ Neurónové siete}
 
-\author{Peter Kovács} % Your name
+\author{Peter Kovács, Marián Margeta, Jozef Brandys, Jakub Pospíchal} % Your name
 \date{ }
  
 \begin{document}
@@ -182,8 +182,27 @@ Každý vektor z $X$ vieme jednoznačne rozložiť $ x = x_{obal} + x_{orto}$ kd
 Hopfieldov model neurónovej siete vyzerá tak, že má jednu vrstvu, kde každý neurón je prepojený s ostatnými. Každý z neurónov nadobúda stav $S_i = \{-1,1\}, i = 1,\dots, n$ a má váhy $J_{ij}$. Ak $J_{ij} > 0$ nazývame ju excitačná inak inhibičná a definitoricky váha $J_{ii} = 0$. \\\\
 V prípade, že chceme spočítať update váh najprv musíme spočítať:
 \begin{enumerate}
-\item Postsynapticky potencial - 
+\item Postsynapticky potencial - $h_i^int = \sum J_{ij}S_j$.
+\item Excitačná hranica(threshold) $h_i^{ext}$.
+\item Efektívny postsynaptický potenciál $h_i = h_i^{int} - h_i^{ext}$.
+\item Neuron state update(deterministic) $S_i \leftarrow sgn(h_i) \in \{-1,1\}$ ak $h_i=0$ potom $sgn(h_i) = 1$.
 \end{enumerate}
+Update môže prebiehať buď synchrónne(všetky naraz) alebo asynchróne(randomne po jednom). Je fajn si uvedomiť, že v prípade synchrónneho updatu sa hýbeme po vrcholoch hyperkocky ale v prípade asynchrónneho po jej hranách.
+\\\\
+ V každom stave siete vieme vypočítať takzvanú energiu siete $E = -\frac{1}{2}\sum_i\sum_jJ_{ij}S_iS_j - \sum_iS_ih_i^{ext}$
+\\\\
+Dá sa ukázať, že ak používame asynchrónny update s excitačným thresholdom $h_i^{ext} = 0, \forall i$ a symetrickou konektivitou neurónov $J = J^T$ energia vždycky klesá počas relaxácie(updatovania neurónov). 
+\\\\
+Atraktory delíme na pravé a falošné(lineárna kombinácia zapamätaných vzorov). 
+\\\\
+V autoasociatívnej pamäti chceme nastaviť váhy tak, aby bodovými atraktormi boli naše zapamätané patterny.
+Predpokladajme, že máme binárne patterny $x^p = [x_1{(p)}, \dots, x_n{(p)}]$ $p = 1, \dots, N$, potom váhy nastavíme podľa nasledovného vzťahu: 
+$$ J_{ij} = \frac{1}{n}\sum_p x_i{(p)} x_j{(p)} \text{ for } i\neq j \text{ and } J_{ii} = 0$$
+Keď sieť relaxujeme z $S(0) \to \dots \to x_i{(r)}$ potom podmienka stability  pre vzor $x_i{(r)}$ je nasledovná 
+$$ x_i{(r)} * h_i{(r)} = x_i{(r)}\sum_jJ_{ij}x_i{(r)} = \dots = 1 + C_i{(r)} > 0$$, kde $C_i{(r)}$ voláme crosstalk(šum). Ak sú vzory na seba navzájom kolmé potom šum je $C_i{(r)} = 0$ a kapacita pamäte je rovná počtu vzorov.
+\\\\
+Kapacitu pamäte môžeme merať pomocou toho, že zistíme aká je pravdepodobnosť, že $i$-ty neurón je nestabilný. $P_{error} = P(C_i{(r)} > 1)$. Táto pravdepodobnosť priamo závisí od počtu patternov a počtu neurónov. $C_i{(r)} \tilde Bin(0,\sigma^2)$ kde $\sigma^2 = N/n$. Z vety o centrálnej limite potom platí, že $Bin\approx N(0, \sigma^2)$.
+
 
 \subsection{Nelineárne dynamické systémy: stavový portrét, dynamika, typy atraktorov. Hopfieldov model NS: stochastická dynamika, parameter inverznej teploty, princíp odstránenia falošných atraktorov.}
 \textcolor{red}{TODO}
