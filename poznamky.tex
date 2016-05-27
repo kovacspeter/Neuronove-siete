@@ -196,16 +196,17 @@ Dá sa ukázať, že ak používame asynchrónny update s excitačným threshold
 Atraktory delíme na pravé a falošné(lineárna kombinácia zapamätaných vzorov). 
 \\\\
 V autoasociatívnej pamäti chceme nastaviť váhy tak, aby bodovými atraktormi boli naše zapamätané patterny.
-Predpokladajme, že máme binárne patterny $x^p = [x_1{(p)}, \dots, x_n{(p)}]$ $p = 1, \dots, N$, potom váhy nastavíme podľa nasledovného vzťahu: 
-$$ J_{ij} = \frac{1}{n}\sum_p x_i{(p)} x_j{(p)} \text{ for } i\neq j \text{ and } J_{ii} = 0$$
-Keď sieť relaxujeme z $S(0) \to \dots \to x_i{(r)}$ potom podmienka stability  pre vzor $x_i{(r)}$ je nasledovná 
-$$ x_i{(r)} * h_i{(r)} = x_i{(r)}\sum_jJ_{ij}x_i{(r)} = \dots = 1 + C_i{(r)} > 0$$, kde $C_i{(r)}$ voláme crosstalk(šum). Ak sú vzory na seba navzájom kolmé potom šum je $C_i{(r)} = 0$ a kapacita pamäte je rovná počtu vzorov.
+Predpokladajme, že máme binárne patterny $x^p = [x_1^{(p)}, \dots, x_n^{(p)}]$ $p = 1, \dots, N$, potom váhy nastavíme podľa nasledovného vzťahu: 
+$$ J_{ij} = \frac{1}{n}\sum_p x_i^{(p)} x_j^{(p)} \text{ for } i\neq j \text{ and } J_{ii} = 0$$
+Keď sieť relaxujeme z $S(0) \to \dots \to x_i^{(r)}$ potom podmienka stability  pre vzor $x_i^{(r)}$ je nasledovná 
+$$x_i^{(r)}\times h_i^{(r)} = x_i^{(r)}\sum_jJ_{ij}x_i^{(r)} = \dots = 1 + C_i^{(r)} > 0$$, 
+kde $C_i^{(r)}$ voláme crosstalk(šum). Ak sú vzory na seba navzájom kolmé potom šum je $C_i^{(r)} = 0$ a kapacita pamäte je rovná počtu vzorov.
 \\\\
-Kapacitu pamäte môžeme merať pomocou toho, že zistíme aká je pravdepodobnosť, že $i$-ty neurón je nestabilný. $P_{error} = P(C_i{(r)} > 1)$. Táto pravdepodobnosť priamo závisí od počtu patternov a počtu neurónov. $C_i{(r)} \tilde Bin(0,\sigma^2)$ kde $\sigma^2 = N/n$. Z vety o centrálnej limite potom platí, že $Bin\approx N(0, \sigma^2)$.
+Kapacitu pamäte môžeme merať pomocou toho, že zistíme aká je pravdepodobnosť, že $i$-ty neurón je nestabilný. $P_{error} = P(C_i^{(r)} > 1)$. Táto pravdepodobnosť priamo závisí od počtu patternov a počtu neurónov. $C_i^{(r)} \sim Bin(0,\sigma^2)$ kde $\sigma^2 = N/n$. Z vety o centrálnej limite potom platí, že $Bin\approx N(0, \sigma^2)$.
 
 
 \subsection{Nelineárne dynamické systémy: stavový portrét, dynamika, typy atraktorov. Hopfieldov model NS: stochastická dynamika, parameter inverznej teploty, princíp odstránenia falošných atraktorov.}
-\textcolor{red}{TODO}
+
 
 
 \end{document}
