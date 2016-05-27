@@ -31,10 +31,10 @@
 \setlength{\headheight}{11pt} % Customize the height of the header
 \usepackage{hyperref}
 \hypersetup{
-	colorlinks=true,
-	linkcolor=blue,
-	filecolor=magenta,
-	urlcolor=cyan,
+colorlinks=true,
+linkcolor=blue,
+filecolor=magenta,
+urlcolor=cyan,
 }
 \numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
 %\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
@@ -157,8 +157,14 @@ Každý vektor z $X$ vieme jednoznačne rozložiť $ x = x_{obal} + x_{orto}$ kd
 
 
 \subsection{Hybridné modely NS, RBF model: aktivačné vzorce, bázové funkcie, príznakový priestor, problém interpolácie, trénovanie modelu, aproximačné vlastnosti RBF siete.}
-\textcolor{red}{TODO}
-
+Tento model je istou kombináciou učenia s učiteľom a bez učiteľa. Funguje to veľmi dobre pokiaľ pre podobné vstupy očakávame podobné výstupy. Vačšinou vyžadujeme viac neurónov ako pri ostatných modeloch učených iba s učiteľom. Konkrétne sa pozrieme na model Radial Basis function neural network.
+\\\\
+Tradične máme vstupy $x$, váhy $w$ a výstupy $y$.\\
+\includegraphics[width=10cm]{imgs/rbf}\\
+Výstupné aktivácie budú teda podla schémy
+ $$y_i = \sum^q_{k=1}w_{ik}h_k(x) + w_{i0} $$, kde $h_k$ je radiálna aktivačná funkcia, ako napríklad $exp(-\frac{|x-v_k|^2}{\sigma_k^2})$, $v_k$ je centrum $k$ a $\sigma_k$ je rozsah. 
+\\\\
+\textcolor{red}{TODO} - dorobim PETO
 
 \section{Rekurentné a pamäťové modely. Otázky 13 až 18.}	
 \subsection{NS na spracovanie sekvenčných dát: reprezentácia času, typy úloh pre rekurentné NS. Modely s časovým oknom do minulosti, výhody a nedostatky, príklad použitia.}
