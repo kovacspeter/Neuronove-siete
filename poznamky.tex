@@ -149,9 +149,19 @@ Každý vektor z $X$ vieme jednoznačne rozložiť $ x = x_{obal} + x_{orto}$ kd
 
 
 \subsection{Učenie so súťažením (typu “winner-take-all”), nevýhody. Neurobiologická motivácia algoritmu SOM, laterálna interakcia a jej náhrada v SOM, sumarizácia algoritmu, voľba parametrov modelu.}
-\textcolor{red}{TODO}
-
-
+Učenie so súťažením je biologicky motivovaná tak, že čím viac sa synapsie používajú tým by mali byť silnejšie. Výskumníci sa tiež inšpirovali modelom toho ako sietnica mapuje svoje impulzy v mozgu. Model samoorganizujúcej sa mapy(SOM) je model s dvomi vrstvami vstupnou a výstupnou. Výstupná vrstva zvykne byť vačšinou organizovaná v mriežke, najčastejšie 2D(kvôli vizualizácii) ale občas sa využíva aj viac D mriežka. Každý neurón na vstupnej vrstve je prepojený s každým na výstupnej. \\
+\includegraphics[width=12cm]{imgs/som}\\
+V prípade učenia typu “winner-take-all” sa ku každému vstupnému vzoru nájde jeden neuón(tzn. BMU - best matching unit) $bmu_c = max_i\{w_i^Tx\}$ ktorého následne vstupný vzor k sebe "pritiahne" $\Delta w_c = \alpha (x - w_c)$. Nevýhodou tohto prístupu je, že veľa neurónov ostane na svojej pôvodnej pozícii a v podstate ničomu nepomáhajú(dead neurons).\\\\
+Neskôr sa vymyslelo, že neuróny budú mať v mriežke topológiu(umiestnenie) a budeme sa učiť spôsobom "winner-take-most" tak, že neuróny v okolí budú spolupracovať. V prípade, že sú blízko vzruchu a spojenie sa vyuzíva tak ho posilňujeme v opačnom prípade ho potlačujeme. Túto spoluprácu nazývame laterálna interakcia. V SOM-ke sme to nahradili výpočtovo efektívnejším modelom tak, že upravujeme iba neuróny v určitom okolí BMU, a okolie sa s postupným časom učenia zmenšuje. Ako príklad funkcie okolia si môžeme uviesť napríklad "rectangular neighbourhood"\\
+\includegraphics[width=12cm]{imgs/rect_neighb}\\
+Alebo alternatívne gausovské okolie dané vzťahom $h(i^*, i) = exp(\frac{d^2_E(i^*, i)}{\lambda^2}(t))$, kde lambda sa postupne zmenšuje $\lambda(t) = \lambda_i(\frac{\lambda_f}{\lambda_i})^{t/t_{max}}$. $\lambda_i$ je lambda na začiatku výpočtu a $\lambda_f$ je lambda na konci výpočtu. $t$ a $t_{max}$ je aktuálna iterácia a celkový počet iterácii.
+\\\\
+Suma sumárum algoritmus vyzerá nasledovne:
+\begin{itemize}
+\item Zoberieme náhodný vstup $x$ a najdeme BMU $i^* = arg min_i |x - w_i|$.
+\item Upravíme na základe BMU váhy : $$ w_i(t+1) = w_i(t) + \alpha(t)h(i^*,i)[x(t) - w_i(t)] $$
+\item Updatneme parametre(susednost, rychlost ucenia) SOM a opakujeme do konvergencie.
+\end{itemize}
 \subsection{SOM: vektorová kvantizácia, topografické zobrazenie príznakov, algoritmus SOM, parametre, redukcia dimenzie, magnifikačná vlastnosť, príklad použitia.}
 \textcolor{red}{TODO}
 
@@ -240,7 +250,7 @@ Kapacitu pamäte môžeme merať pomocou toho, že zistíme aká je pravdepodobn
 
 
 \subsection{Nelineárne dynamické systémy: stavový portrét, dynamika, typy atraktorov. Hopfieldov model NS: stochastická dynamika, parameter inverznej teploty, princíp odstránenia falošných atraktorov.}
-
+\textcolor{red}{TODO}
 
 
 \end{document}

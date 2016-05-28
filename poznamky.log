@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.4.1)  28 MAY 2016 09:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.4.1)  28 MAY 2016 10:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1226,209 +1226,234 @@ Package hyperref Warning: Composite letter `\textasciicaron+l'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 151.
 
+<imgs/som.png, id=215, 421.575pt x 303.1325pt>
+File: imgs/som.png Graphic file (type png)
+ <use imgs/som.png>
+Package pdftex.def Info: imgs/som.png used on input line 153.
+(pdftex.def)             Requested size: 341.43306pt x 245.51285pt.
+
+<imgs/rect_neighb.png, id=216, 466.74374pt x 254.9525pt>
+File: imgs/rect_neighb.png Graphic file (type png)
+
+<use imgs/rect_neighb.png>
+Package pdftex.def Info: imgs/rect_neighb.png used on input line 156.
+(pdftex.def)             Requested size: 341.43306pt x 186.51056pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 152--160
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 152--160
+
+ []
+
+[8] [9 <./imgs/som.png>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 161.
+
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 161.
+
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 155.
+(hyperref)                removing `\textasciicaron' on input line 165.
 
 
 Package hyperref Warning: Composite letter `\textasciicaron+t'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 155.
+(hyperref)                removing `\textasciicaron' on input line 165.
 
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 159.
+(hyperref)                removing `\textasciicaron' on input line 169.
 
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 159.
+(hyperref)                removing `\textasciicaron' on input line 169.
 
-<imgs/rbf.png, id=215, 415.5525pt x 283.0575pt>
+<imgs/rbf.png, id=226, 415.5525pt x 283.0575pt>
 File: imgs/rbf.png Graphic file (type png)
  <use imgs/rbf.png>
-Package pdftex.def Info: imgs/rbf.png used on input line 163.
+Package pdftex.def Info: imgs/rbf.png used on input line 173.
 (pdftex.def)             Requested size: 284.52756pt x 193.81546pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 160--165
+Underfull \hbox (badness 10000) in paragraph at lines 170--175
 
  []
 
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 165--172
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 165--172
+[10 <./imgs/rect_neighb.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 175--182
 
  []
 
 
-Overfull \hbox (13.88892pt too wide) in paragraph at lines 165--172
+Underfull \hbox (badness 10000) in paragraph at lines 175--182
+
+ []
+
+
+Overfull \hbox (13.88892pt too wide) in paragraph at lines 175--182
 \T1/cmr/m/n/10 Pre RBF v pod-state dostaneme sys-tém lineárnych rovníc $\OML/cm
 m/m/it/10 w[]h[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 d[]; i \OT1/cmr/m/n/10 = 1\
 OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 2\OML/cmm/m/it/10 ; [] ; N$\T1/cmr/m/n/10 .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 165--172
+Underfull \hbox (badness 10000) in paragraph at lines 175--182
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 175--178
+Underfull \hbox (badness 10000) in paragraph at lines 185--188
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 175--178
+Underfull \hbox (badness 10000) in paragraph at lines 185--188
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 179.
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 179.
- [9 <./imgs/rbf.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 184--187
+[11 <./imgs/rbf.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 194--197
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 188--190
+Underfull \hbox (badness 10000) in paragraph at lines 198--200
 
  []
 
 
 Package hyperref Warning: Composite letter `\textasciicaron+t'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 197.
+(hyperref)                removing `\textasciicaron' on input line 207.
 
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 198.
+(hyperref)                removing `\textasciicaron' on input line 208.
 
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 198.
+(hyperref)                removing `\textasciicaron' on input line 208.
 
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 198.
+(hyperref)                removing `\textasciicaron' on input line 208.
 
 
-Overfull \hbox (4.04657pt too wide) in paragraph at lines 202--202
+Overfull \hbox (4.04657pt too wide) in paragraph at lines 212--212
 []\T1/cmr/bx/n/12 Rekurentné NS: princíp tréno-va-nia po-mo-cou al-go-ritmu
  []
 
 
-Overfull \hbox (7.52486pt too wide) in paragraph at lines 206--206
+Overfull \hbox (7.52486pt too wide) in paragraph at lines 216--216
 \T1/cmr/bx/n/12 dy-namike, Markovovské sprá-vanie, ar-chitek-turálna pre-
  []
 
 
 Package hyperref Warning: Composite letter `\textasciicaron+t'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 206.
+(hyperref)                removing `\textasciicaron' on input line 216.
 
-[10]
-
-Package hyperref Warning: Composite letter `\textasciicaron+t'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 210.
-
+[12]
 
 Package hyperref Warning: Composite letter `\textasciicaron+t'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 210.
+(hyperref)                removing `\textasciicaron' on input line 220.
 
 
 Package hyperref Warning: Composite letter `\textasciicaron+t'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 210.
+(hyperref)                removing `\textasciicaron' on input line 220.
 
 
 Package hyperref Warning: Composite letter `\textasciicaron+t'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 214.
+(hyperref)                removing `\textasciicaron' on input line 220.
+
+
+Package hyperref Warning: Composite letter `\textasciicaron+t'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 224.
 
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 214.
+(hyperref)                removing `\textasciicaron' on input line 224.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 216--218
+Underfull \hbox (badness 10000) in paragraph at lines 226--228
 
  []
 
 
-Overfull \hbox (11.41296pt too wide) in paragraph at lines 224--234
+Overfull \hbox (11.41296pt too wide) in paragraph at lines 234--244
 \T1/cmr/m/n/10 Update môºe pre-bieha´ bu¤ syn-chrónne(v²etky naraz) alebo asyn-
 chróne(randomne
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 224--234
+Underfull \hbox (badness 10000) in paragraph at lines 234--244
 
  []
 
 
-Overfull \hbox (23.57857pt too wide) in paragraph at lines 224--234
+Overfull \hbox (23.57857pt too wide) in paragraph at lines 234--244
 \T1/cmr/m/n/10 V kaº-dom stave si-ete vieme vy-po£í-ta´ takz-vanú en-ergiu si-e
 te $\OML/cmm/m/it/10 E \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 ^^@[] [][] [][] \OML/
 cmm/m/it/10 J[]S[]S[] \OMS/cmsy/m/n/10 ^^@
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 224--234
+Underfull \hbox (badness 10000) in paragraph at lines 234--244
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 224--234
+Underfull \hbox (badness 10000) in paragraph at lines 234--244
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 224--234
+Underfull \hbox (badness 10000) in paragraph at lines 234--244
 
  []
 
-[11]
-Underfull \hbox (badness 10000) in paragraph at lines 236--240
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 246--250
 
  []
 
 
-Overfull \hbox (6.9348pt too wide) in paragraph at lines 242--242
+Overfull \hbox (6.9348pt too wide) in paragraph at lines 252--252
 \T1/cmr/bx/n/12 namika, typy atrak-torov. Hop-fiel-dov model NS: stocha-
  []
 
-[12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 246.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 246.
+[14]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 256.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 256.
  (./poznamky.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 246.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 246.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 256.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 256.
 Package rerunfilecheck Info: File `poznamky.out' has not changed.
 (rerunfilecheck)             Checksum: 5E6E2992C77D4E7736E5C0713B2ED1B2;4765.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 246.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 256.
  ) 
 Here is how much of TeX's memory you used:
- 17190 strings out of 493089
- 320371 string characters out of 6134843
+ 17202 strings out of 493089
+ 320573 string characters out of 6134843
  388505 words of memory out of 5000000
- 20295 multiletter control sequences out of 15000+600000
+ 20303 multiletter control sequences out of 15000+600000
  16908 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,7n,54p,720b,457s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1450,10 +1475,10 @@ e/2015/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/
 15/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2015
 /texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2015/t
 exmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb>
-Output written on poznamky.pdf (12 pages, 410801 bytes).
+Output written on poznamky.pdf (14 pages, 557681 bytes).
 PDF statistics:
- 312 PDF objects out of 1000 (max. 8388607)
- 273 compressed objects within 3 object streams
- 51 named destinations out of 1000 (max. 500000)
- 196 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 325 PDF objects out of 1000 (max. 8388607)
+ 280 compressed objects within 3 object streams
+ 53 named destinations out of 1000 (max. 500000)
+ 206 words of extra memory for PDF output out of 10000 (max. 10000000)
 
