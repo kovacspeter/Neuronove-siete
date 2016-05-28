@@ -46,7 +46,7 @@ urlcolor=cyan,
 
 \title{ Neurónové siete}
 
-\author{Peter Kovács, Marián Margeta, Jozef Brandys, Jakub Pospíchal} % Your name
+\author{Peter Kovács, Marián Margeta, Jakub Pospíchal}
 \date{ }
  
 \begin{document}
@@ -57,9 +57,9 @@ urlcolor=cyan,
 \section{Dopredné modely. Otázky 1 až 7. }
 \subsection{Stručná história konekcionizmu, vlastnosti biologického neurónu, model neurónu s prahovou logikou,
 implementácia Booleových funkcií. Paradigmy učenia a typy úloh pre NS.}
-Stručná história konekcionizmu sa začína v 40tych rokoch v psychologii a filozofii. McCullogh a Pitts vymyslia neuron s aktivacnym prahom. Neskor v 60. až 70. rokoch sa k ich nápadu vyjadrí Minsky, zrozumitelnejšie to popíše a dá to do kontextu s teóriou formálnych jazykov a automatov. V 90. rokoch prichádzajú na výslnie viacvrstvové generatívne modely a od roku 2000 prichádza druhá renesancia - deep learning, rekurentné a konvolučné neurónové sieťe a tiež siete s echo stavmi.
+Stručná história konekcionizmu sa začína v 40tych rokoch v psychologii a filozofii. McCullogh a Pitts vymyslia neuron s aktivacnym prahom. Neskor v 60. až 70. rokoch sa k ich nápadu vyjadrý Minsky, zrozumitelnejšie to popíše a dá to do kontextu s teóriou formálnych jazykov a automatov. V 90. rokoch prichádzajú na výslnie viacvrstvové generatívne modely a od roku 2000 prichádza druhá renesancia - deep learning, rekurentné a konvolučné neurónové sieťe a tiež siete s echo stavmi.
 \\\\
-Nervová bunka sa skladá z tela a niekoľkých výbežkov. Tieto možno rozdeliť na dva typy" dendrity, ktoré predstavujú z informatického hľadiska vstupnú časť (predovšetkým na ne prechádza vzruch z iných buniek) a jeden axón, po ktorom sa vzruch šíri k iným bunkám.[Uvod do teórie neurónových sietí.]
+Nervová bunka sa skladá z tela a niekoľkých výbežkov. Tieto možno rozdeliť na dva typy: dendrity, ktoré predstavujú z informatického hľadiska vstupnú časť (predovšetkým na ne prechádza vzruch z iných buniek) a jeden axón, po ktorom sa vzruch šíri k iným bunkám.[Uvod do teórie neurónových sietí.]
 \\\\
 Neurón s prahovou logikou vyzerá nasledovne, \\
 \includegraphics[width=12cm]{imgs/threshold_neuron}\\
@@ -73,7 +73,7 @@ V dnešnej dobe sa neurónové siete používajú na kadečo významné úspechy
 Binarny perceptron === dáva nám output 1/0 [??]\\
 \includegraphics[width=12cm]{imgs/threshold_neuron}\\
 Učiace pravidlo updatuje perceptrón na základe toho aký výstup nám vypluje a aký bol požadovaný výstup. 
-$$ w_j(t+1) = w_j = \alpha (d-y)x_j $$
+$$ w_j(t+1) = w_j + \alpha (d-y)x_j $$
 kde $w_j$ je váha $j$-teho vstupu $\alpha$ je rýchlosť učenia, $d$ je očakývaný výstup, $y$ je výstup perceptrónu a $x_j$ je $j$-ty vstup.
 \\\\
 Algoritmus trénovania je nasledovný:
@@ -91,23 +91,22 @@ V roku 1962 Rosenblatt sformuloval vetu: Nech triedy A a B sú lineárne separov
 Dôkaz: Nech $\alpha = 1$ ... \textcolor{red}{TODO}
 
 \subsection{Spojitý perceptrón: Rôzne aktivačné funkcie perceptrónu, chybová funkcia a spôsob jej minimalizácie, učiace pravidlo, algoritmus trénovania perceptrónu. Súvis s Bayesovským klasifikátorom.}
-Na rozdiel od prahového perceptrónu už nebudeme mať aktivačnú funkciu signum ale použijemen rôzne spojité napríklad sigmoidu alebo tangens hyperbolický. Sigmoida $\frac{1}{1 + e^{-x}}$ nám dáva výstupy v intervale $[0, 1]$ a tanh $[-1, 1]$.\\
+Na rozdiel od prahového perceptrónu už nebudeme mať aktivačnú funkciu signum ale použijeme rôzne spojité funkcie napríklad sigmoidu alebo tangens hyperbolický. Sigmoida $\frac{1}{1 + e^{-x}}$ nám dáva výstupy v intervale $[0, 1]$ a tanh $[-1, 1]$.\\
 \includegraphics[width=12cm]{imgs/cont_neuron}\\
-Ako chybovú funkciu si opäť môžeme zvoliť $1/2 \sum_p (d{(p)}- y{(p)})^2$ kde $d{(p)}$ je $p$-ty očakávaný výstup. Aby naše výsledky boli čo najpresnejšie chceme chybovú funkciu minimalizovať. Na to používame algoritmus gradient descent, ktorý funguje tak, že nájdeme deriváciu chybovej funkcie a v smere proti gradientu budeme meniť váhy tak, aby sme sa dostali na gradient rovný 0. Gradient descent má viacero spôsobov ako minimalizuje funkciu.
+Ako chybovú funkciu si opäť môžeme zvoliť $1/2 \sum_p (d^{(p)}- y^{(p)})^2$ kde $d^{(p)}$ je $p$-ty očakávaný výstup. Aby naše výsledky boli čo najpresnejšie chceme chybovú funkciu minimalizovať. Na to používame algoritmus gradient descent, ktorý funguje tak, že nájdeme deriváciu chybovej funkcie a v smere proti gradientu budeme meniť váhy tak, aby sme sa dostali na gradient rovný 0. Keď použijeme algoritmus najstrmšieho spádu uvažujú sa dve varianty:
 \begin{enumerate}
-\item Stochastic gradient descent - po každom videnom príklade spravím update parametrov - $w_j(t+1) = w_j(t) + \alpha(d^{(p)} - y{(p)})f'x_j = w_j(t) + \alpha\delta x_j$. 
+\item Stochastic gradient descent - po každom videnom príklade spravím update parametrov - $w_j(t+1) = w_j(t) + \alpha(d^{(p)} - y^{(p)})f'x_j = w_j(t) + \alpha\delta x_j$. 
 \item Batch gradient descent - prejdeme cez všetky trénovacie príklady spočítame chyby a až potom spravíme update $w_j(t+1) = w_j(t) + \alpha \sum_p \delta x_j$.
 \end{enumerate}
-Pri stochastickej verzii sise skonvergujeme ale nemusíme sa dostať až do úplného minimia ale budeme niekde okolo neho poskakovať. Pri batch verzii robíme najstrmší krok v chybovom priestore a zmenšujeme chybu ako sa len dá, no platíme za to dlším časom počítania. \\\\
-Ako dalšie často používané chybové funkcie môžeme spomenúť cross-entropy chybovú funkciu $-\sum_p [d^{(p)} ln (y^{(p)}) + (1 - d^{(p)})ln(1-y^{(p)})]$, ktorú keď minimalizujeme dostaneme opäť rovnaké učiace pravidlo ako pri squared error. Táto funkcia nám vlastne povie s akou pravdepodbnosťou príklad patrí do triedy 1 alebo 0.
+Pri stochastickej verzii sice skonvergujeme ale nemusíme sa dostať až do úplného minima ale budeme niekde okolo neho poskakovať. Pri batch verzii robíme najstrmší krok v chybovom priestore a zmenšujeme chybu ako sa len dá, no platíme za to dlším časom počítania. \\\\
+Ako dalšie často používané chybové funkcie môžeme spomenúť cross-entropy chybovú funkciu $$-\sum_p [d^{(p)} ln (y^{(p)}) + (1 - d^{(p)})ln(1-y^{(p)})]$$, ktorú keď minimalizujeme dostaneme opäť rovnaké učiace pravidlo ako pri squared error. Táto funkcia nám vlastne povie s akou pravdepodbnosťou príklad patrí do triedy 1 alebo 0.
 
-
-Tato chybová funkcia je vhodná pri binárnej klasifikácii. Ďaľšou funkciou je softmax $y_i = \frac{exp(net_i)}{\sum_j exp(net_j)}$, ktorá je vhodná napríklad pri klsifikácii do viacerých tried. Potom nám vlastne hovorí s akou pravdepodobnosťou sample patrí do ktorej triedy.
+Tato chybová funkcia je vhodná pri binárnej klasifikácii. Ďaľšou funkciou je softmax $y_i = \frac{exp(net_i)}{\sum_j exp(net_j)}$, ktorá je vhodná napríklad pri klasifikácii do viacerých tried. Potom nám vlastne hovorí s akou pravdepodobnosťou sample patrí do ktorej triedy.
 \\\\ \textcolor{red}{TODO} súvis s bayes klasifikatorom.
 
 \subsection{Viacvrstvové dopredné neurónové siete: architektúra a aktivačné vzorce, odvodenie metódy učenia pomocou spätného šírenia chýb (BP) pre dvojvrstvovú doprednú NS, modifikácie BP, typy úloh pre použitie doprednej NS.}
 \includegraphics[width=12cm]{imgs/2Lmlp}\\
-Otázkou je ako natrénujeme takúto sieť? Ako príklad si zoberme, že chceme minimalizovať kvadratickú chybu $\frac{1}{2}\sum_i(d^{(p)} - y^{(p)})$. Vieme ukázať, že ak ju chceme minimalizovať, potom každú váhu nám bude stačiť aktualizovať podľa vzorcov pre skrytú a výstupnú vrstvu:
+Otázkou je ako natrénujeme takúto sieť? Ako príklad si zoberme, že chceme minimalizovať kvadratickú chybu $\frac{1}{2}\sum_i(d^{(p)} - y^{(p)})$ na vyššie uvedenom modeli. 
 \\\\
 Algoritmus error backpropagation(spatné šírenie chyby) používame na natrénovanie dopredných neurónových sietí. Algoritmus vyzerá nasledovne:\\
 \begin{enumerate}
@@ -129,17 +128,17 @@ Medzi aplikácie MLP môžeme zaradiť, rozpoznávanie ručne písaných PSČ, s
 
 \subsection{Viacvrstvová dopredná NS ako univerzálny aproximátor funkcií (formulácia teorému), trénovacia a testovacia množina, generalizácia, preučenie, skoré zastavenie učenia, selekcia modelu, validácia modelu. Hlboké učenie NS.}
 \includegraphics[width=12cm]{imgs/uni_aprox}\\
-Trénovacou množinou rozumieme dáta, ktoré používame na trénovanie modelu(minimalizáciu chyby). Zvyčajne pri trénovaní modelu trénovacie dáta náhodne rozdelíme na trénovacie a validačné. Na trénovacích dátach optimalizujeme model a jeho úspešnosť vyhodnocujeme na validačných dátach. Treba si uvedomiť, že validačné a testovacie dáta nie su to isté. Validačné používame na odhad generalizácie modelu a testovacie používame až úplne na konci keď už máme nájdený optimálny model na validačných dátach aby sme vyhodnotili jeho úspešnosť.
+Trénovacou množinou rozumieme dáta, ktoré používame na trénovanie modelu(minimalizáciu chyby). Zvyčajne pri trénovaní modelu trénovacie dáta náhodne rozdelíme na trénovacie a validačné. Na trénovacích dátach optimalizujeme model a jeho úspešnosť vyhodnocujeme na validačných dátach. Treba si uvedomiť, že validačné a testovacie dáta nie su to isté. Validačné používame na odhad generalizácie modelu a testovacie používame až úplne na konci keď už máme nájdený optimálny model a to tak, že na nich vyhodnotíme jeho úspešnosť.
 \\\\
-Pod pojmom generalizácia máme na mysli odolnosť modelu voči náhodnému šumu alebo aj výkonnosť modelu na nových dátach. K pojmu generalizácia sa viažu pojmu podučenie a preučnie. K podučeniu dochádza keď náš model nemá dostatočnú silu na aproximovanie náhodného rozdelenia, z ktorého sú dáta samplované. Ako príklad by sme mohli uviesť použitie jednoduchého perceptrónu na problem XOR. Naopak k preučeniu dochádza keď náš model je natolko silný, že sa snaží modelovať náhodný šum v dátach. V ľavo môžeme vidieť dobrý model a vpravo preučený.\\
+Pod pojmom generalizácia máme na mysli odolnosť modelu voči náhodnému šumu alebo aj výkonnosť modelu na nových dátach. K pojmu generalizácia sa viažu pojmy podučenie a preučnie. K podučeniu dochádza keď náš model nemá dostatočnú silu na aproximovanie náhodného rozdelenia, z ktorého sú dáta samplované. Ako príklad by sme mohli uviesť použitie jednoduchého perceptrónu na problem XOR. Naopak k preučeniu dochádza keď náš model je natolko silný, že sa snaží modelovať náhodný šum v dátach. V ľavo môžeme vidieť dobrý model a vpravo preučený.\\
 \includegraphics[width=12cm]{imgs/bias_var}\\
 Proti preučeniu sa dá bojovať rôznymi spôsobmi, jednak môžeme použiť skoré zastavenie modelu, čo je technika ktorá po každých pár epochách vyhodnocuje validačnú chybu. V prpade, že validačná chyba začne stúpať vrátime sa o krok späť a ukončíme trénovanie.
 \\\\
-Ďalším spôsobom boja proti preučeniu je takzvaná regularizácia, pri ktorej sa môžeme napríklad snažiť penalizovať velké váhy v neurónoch.
+Ďalším spôsobom boja proti preučeniu je takzvaná regularizácia, pri ktorej sa môžeme napríklad snažiť penalizovať velké váhy pri jednotlivých neurónoch(jeden neurón má velký vplyv na výsledok).
 \\\\
-Pri selekcii potrebujeme zistiť nastavenie rôznych parametrov ako je počet vrstiev a počet neurónov v nich, rýchlosť učenia poprípade iné parametr. Vhodnou metódou zisťovania úspešnosti modelu je k-fold cross validation, čo je metóda pri ktorej rozdelíme dáta na náhodných $k$ podmnožín. Následne vyberem $k-1$ z nich na ktorých model natrénujem a poslednú podmnožinu použijem na validáciu úspešnosti modelu. Toto spravím $k$ krát - zakaždým trénujem a validujem na inej podmnožine. Suma sumárum dostanem $k$ rôznych validačných hodnôt. Tie sa zvyknú spriemerovať a poprípade sa z nich zvykne vypočítať ešte aj smerodajná odchýlka. 
+Pri selekcii modelu potrebujeme zistiť nastavenie rôznych parametrov ako je počet vrstiev a počet neurónov v nich, rýchlosť učenia poprípade iné parametre. Vhodnou metódou zisťovania úspešnosti modelu je k-fold cross validation, čo je metóda pri ktorej rozdelíme dáta na náhodných $k$ podmnožín. Následne vyberem $k-1$ z nich na ktorých model natrénujem a poslednú podmnožinu použijem na validáciu úspešnosti modelu. Toto spravím $k$ krát - zakaždým trénujem a validujem na inej podmnožine. Suma sumárum dostanem $k$ rôznych validačných hodnôt. Tie sa zvyknú spriemerovať a poprípade sa z nich zvykne vypočítať ešte aj smerodajná odchýlka. 
 \\
-Tento postup zopakujem pre všetky možnosti uvažovaných parametrov a vyberem model ktorý ma najmenšiu priemernú chybu, prípadne vezmem do úvahy aj smerodajnú odchylku.
+Tento postup zopakujem pre všetky možnosti uvažovaných parametrov a vyberem model, ktorý ma najmenšiu priemernú chybu, prípadne vezmem do úvahy aj smerodajnú odchylku.
 \\\\
 Pod pojmom deep learning sa rozumejú siete, ktoré majú viac vrstiev.
 
@@ -159,11 +158,13 @@ Vypočítat ich potom môžeme nasledovne
 \end{enumerate}
 kde $N$ je počet príkladov a $n$ je dimenzia vstupu.
 \\\\
-Chcely by sme natrénovať model X = WX, $N < n$ a chceme aby model vedel rekonštruovať N vstupov. Takýto model voláme lineárny autoasociátor. V prípade, že $N=n$ by sme dostali triviálne  riešenie $W = I$, to ale nie je to čo chceme. Keď dostaneme zašumený vstup tak chceme odpovedať zapamätaným vzorom. 
+Chceli by sme natrénovať model X = WX, $N < n$ a chceme aby model vedel rekonštruovať N vstupov. Takýto model voláme lineárny autoasociátor. V prípade, že $N=n$ by sme dostali triviálne  riešenie $W = I$, to ale nie je to čo chceme. Keď dostaneme zašumený vstup tak chceme odpovedať zapamätaným vzorom. 
 \\\\
-Linear manifold $L = \{ x \in R | x = a_1x_1 + a_2x_2 + \cdots + a_Nx_N, a_p \neq 0 \} , L \subset R^n$ \\
-Ortogonálny komplement = $L^{\perp} = \{x \in R | x \perp L\}$ \\\\
-Každý vektor z $X$ vieme jednoznačne rozložiť $ x = x_{obal} + x_{orto}$ kde $x_{obal} \in L, x_{orto} \in L^{\perp}$.Tréningová množina $X = \{ x_1, x_2, \cdots, x_n\}$ bude tvoriť náš lineárny obal $L$. Teraz keď dostaneme ľubovoľný vstup $x$ predpokladáme, že je zašumený, ale keďže ho vieme rozložiť tak nám stačí spraviť ortogonálnu projekciu $Wx = (XX^+)x = x_p$, čím dostaneme pattern ktorý je najbližšie danému vektoru. V prípade, že by sme spočítali $Wx = (I - XX^+)x = x_p$ potom $x_p \in L^{\perp}$, toto voláme detektor novosti.
+Linear manifold $L = \{ x \in R^n | x = a_1x_1 + a_2x_2 + \cdots + a_Nx_N, a_p \neq 0 \} , L \subset R^n$ \\
+Ortogonálny komplement = $L^{\perp} = \{x \in R^n | x \perp L\}$ \\
+A taktiež platí, že : $L \cup L^\perp = R^n$
+\\\\
+Každý vektor z $X$ vieme jednoznačne rozložiť na $ x = x_{obal} + x_{orto}$ kde $x_{obal} \in L, x_{orto} \in L^{\perp}$.Tréningová množina $X = \{ x_1, x_2, \cdots, x_n\}$ bude tvoriť náš lineárny obal $L$. Teraz keď dostaneme ľubovoľný vstup $x$, predpokladajme, že je zašumený, ale keďže ho vieme rozložiť tak nám stačí spraviť ortogonálnu projekciu $Wx = (XX^+)x = x_p$, čím dostaneme pattern ktorý je najbližšie danému vektoru. V prípade, že by sme spočítali $Wx = (I - XX^+)x = x_p$ potom $x_p \in L^{\perp}$, toto voláme detektor novosti.
 
 
 \subsection{Lineárne modely NS: účel Grammovho-Schmidtovho ortogonalizačného procesu, GI model. Pamäť korelačnej matice ako autoasociatívna pamäť, vzťah pre výpočet váh, presluch, porovnanie s GI.}
@@ -180,7 +181,7 @@ Každý vektor z $X$ vieme jednoznačne rozložiť $ x = x_{obal} + x_{orto}$ kd
 \item Spolupráca – medzi susednými neurónmi
 \item Konštrukčná informácia – je získavaná zo vstupných dát ako „knowledge“
 \end{enumerate}
-Učenie bez učiteľa je algoritmus učenia, ktorý nemá informáciu o požadovaných aktivitách výstupných neurónov v priebehu trénovania o ktoré by sa mohol opierať. Pojem Učenie bez učiteľa sa používa na opis širokej škály rôznych učiacich sa úloh. Úlohy tohto typu analyzujú sadu objektov, ktoré nemajú priradenú triedu.
+Učenie bez učiteľa je algoritmus učenia, ktorý nemá informáciu o požadovaných aktivitách výstupných neurónov v priebehu trénovania o ktoré by sa mohol opierať. Pojem učenie bez učiteľa sa používa na opis širokej škály rôznych učiacich sa úloh. Úlohy tohto typu analyzujú sadu objektov, ktoré nemajú priradenú triedu.
 \\\\
 Typy úloh:
 \begin{itemize}
@@ -189,8 +190,9 @@ Typy úloh:
 \item Topologické zobrazenie príznakov
 \item Kompresia dát, tak aby sme zachovali čo najviac z pôvodných
 \end{itemize}
+Predpokladajme, že máme jeden neurón s $n$ vstpmi $y = \sum_{j=1}^n w_jx_j = \textbf{w}^T\textbf{x}$
 Ojovo pravidlo je pravidlo, ktoré hovorí o zmene váh medzi neurónmi. Je to modifikácia štandardného Hebbovho pravidla a vyzerá nasledovne:
-$$w_j(t+1) = \frac{w_j(t) + \alpha yx_j}{|w(t) + \alpha yx|}$$
+$$w_j(t+1) = \frac{w_j(t) + \alpha yx_j}{||\textbf{w(t)} + \alpha y\textbf{x}||}$$
 Pre malé $\alpha$ môžeme pomocou taylorovho rozvoja zapísať aj v tvare:
 $$w_j(t+1)= w_j(t)+\alpha yx_j - y^2w_j(t)$$
 \\\\
@@ -202,38 +204,39 @@ V prípade jedného neurónu, jeho váhový vektor $w$ konverguje k vlastnému v
 Metóda hlavných komponentov nám v priestore parametrov trénovacích dát nájde také smery, v ktorých majú dáta najväčšiu varianciu. Následne keď chceme redukovať dimenzionalitu pristoru predpokladáme, že smery s najvačšou varianciou sú najdôležitejšie.
 \\\\
 Pozrime sa na algoritmus GHA. Architektúra modelu GHA je jednovrstvová sieť s $n$ vstupmi a $p$ výstupmi. Generalizovaný Hebbovský algoritmus na aktualizáciu váh je v tvare
- $$\Delta w_{ij} = \alpha y_i(x_j - \sum_{k=1}^i y_kw_{kj}).$$
+ $$\Delta w_{ij} = \alpha y_i(x_j - \sum_{k=1}^p y_kw_{kj}).$$
 To čo GHA robí je, že extraktuje $p$ hlavných komponentov korelačnej matice vstupných dát. Výhodou oproti klasickému PCA je, že nemusíme počítať korelačnú maticu a zároveň je to výpočtovo o dosť lacnejšie ak máme prípad $p << n$. Taktiež sa dá dokázať, že po skonvergovaní dostaneme usporiadané hlavné komponenty a taktiež, že výsledok je reprodukovatelný až na znamienka. 
 \\\\
-Adaptive Principal component EXtraction(APEX) - je algoritmus, ktorý používa opačný spôsob učenia, tj. anti-Hebbovské učenie. Architektúra siete je opať jednovrstvová ale teraz má naviac laterálne spojenia(v rovnakej vrstve). Hlavné komponenty hľadá iteratívnym prípstupom, že keď ak by dostala $i-1$ hlavných komponentov tak z nich vypočíta $i$-ty hlavný komponent. $I$-ty neurón má teda okrem klasických váh $w_i$ aj laterálne $$u_i = [u_{i1}, \dots, u_{i-1}]^T$$. Výstup siete spočítame pomocou vzťahu 
-$$ y_i = w_i^Tx + u_i^Ty_{i-1}, \text{  kde } y_{i-1} = [y_1, y_2, \dots, y_{i-1}]^T. $$
-Aby sme našli hlavné komponenty, dopredné váhy potom trénujeme pomocou Ojovho pravidla a laterálne váhy pomocou anti-Hebbovského pravidla(inhibičného), ktoré má tvar podobne ako klasické Hebbovské pravidlo akurát je tam mínus: $$ \Delta u_{ik}= -\alpha y_i(y_k + y_iu_{ik}). $$
-Keď to správne naimplementujeme dopredné váhy by mali konvergovať k vlastným vektorom korelačnej matice vstupov a laterálne interakcie k nulovému vektoru.
+Adaptive Principal component EXtraction(APEX) - je algoritmus, ktorý používa opačný spôsob učenia, tj. anti-Hebbovské učenie. Architektúra siete je opať jednovrstvová ale teraz má naviac laterálne spojenia(v rovnakej vrstve). Hlavné komponenty hľadá iteratívnym prípstupom, že keď by dostala $i-1$ hlavných komponentov tak z nich vypočíta $i$-ty hlavný komponent. $I$-ty neurón má teda okrem klasických váh $w_i$ aj laterálne $$u_i = [u_{i1}, \dots, u_{i-1}]^T.$$ Výstup siete spočítame pomocou vzťahu 
+$$ \textbf{y}_i = \textbf{w}_i^T\textbf{x} + \textbf{u}_i^T\textbf{y}_{i-1}, \text{  kde } \textbf{y}_{i-1} = [y_1, y_2, \dots, y_{i-1}]^T. $$
+Aby sme našli hlavné komponenty, dopredné váhy trénujeme pomocou Ojovho pravidla a laterálne váhy pomocou anti-Hebbovského pravidla(inhibičného), ktoré má tvar podobne ako klasické Hebbovské pravidlo akurát je tam mínus: $$ \Delta u_{ik}= -\alpha y_i(y_k + y_iu_{ik}). $$
+Keď to správne naimplementujeme, dopredné váhy by mali konvergovať k vlastným vektorom korelačnej matice vstupov a laterálne interakcie k nulovému vektoru.
 \\\\
 Nech máme ľubovoľný obrázok vieme ho previesť do šedotónového. Následne môžeme na podobrázkoch velkosti 8x8 spustiť naše PCA algoritmy, ktoré nájdu vlastné vektory k týmto podobrázkom. To čo vidím, že sa deje je nejaká forma rasterizácie.
 
 \subsection{Učenie so súťažením (typu “winner-take-all”), nevýhody. Neurobiologická motivácia algoritmu SOM, laterálna interakcia a jej náhrada v SOM, sumarizácia algoritmu, voľba parametrov modelu.}
-Učenie so súťažením je biologicky motivovaná tak, že čím viac sa synapsie používajú tým by mali byť silnejšie. Výskumníci sa tiež inšpirovali modelom toho ako sietnica mapuje svoje impulzy v mozgu. Model samoorganizujúcej sa mapy(SOM) je model s dvomi vrstvami vstupnou a výstupnou. Výstupná vrstva zvykne byť vačšinou organizovaná v mriežke, najčastejšie 2D(kvôli vizualizácii) ale občas sa využíva aj viac D mriežka. Každý neurón na vstupnej vrstve je prepojený s každým na výstupnej. \\
+Učenie so súťažením je biologicky motivované tak, že čím viac sa synapsie používajú tým by mali byť silnejšie. Výskumníci sa tiež inšpirovali modelom toho ako sietnica mapuje svoje impulzy v mozgu. Model samoorganizujúcej sa mapy(SOM) je model s dvomi vrstvami, vstupnou a výstupnou. Výstupná vrstva zvykne byť vačšinou organizovaná v mriežke, najčastejšie 2D(kvôli vizualizácii) ale občas sa využíva aj viac D mriežka. Každý neurón na vstupnej vrstve je prepojený s každým na výstupnej. \\
 \includegraphics[width=12cm]{imgs/som}\\
-V prípade učenia typu “winner-take-all” sa ku každému vstupnému vzoru nájde jeden neuón(tzn. BMU - best matching unit) $bmu_c = max_i\{w_i^Tx\}$ ktorého následne vstupný vzor k sebe "pritiahne" $\Delta w_c = \alpha (x - w_c)$. Nevýhodou tohto prístupu je, že veľa neurónov ostane na svojej pôvodnej pozícii a v podstate ničomu nepomáhajú(dead neurons).\\\\
-Neskôr sa vymyslelo, že neuróny budú mať v mriežke topológiu(umiestnenie) a budeme sa učiť spôsobom "winner-take-most" tak, že neuróny v okolí budú spolupracovať. V prípade, že sú blízko vzruchu a spojenie sa vyuzíva tak ho posilňujeme v opačnom prípade ho potlačujeme. Túto spoluprácu nazývame laterálna interakcia. V SOM-ke sme to nahradili výpočtovo efektívnejším modelom tak, že upravujeme iba neuróny v určitom okolí BMU, a okolie sa s postupným časom učenia zmenšuje. Ako príklad funkcie okolia si môžeme uviesť napríklad "rectangular neighbourhood"\\
+V prípade učenia typu “winner-take-all” sa ku každému vstupnému vzoru nájde jeden neuón(tzn. BMU - best matching unit) $bmu_c = max_i\{\textbf{w}_i^T\textbf{x}\}$, ktorý je následne pritiahnutý vstupným vzorom k sebe $\Delta w_c = \alpha (x - w_c)$. Nevýhodou tohto prístupu je, že veľa neurónov ostane na svojej pôvodnej pozícii a v podstate ničomu nepomáhajú(dead neurons).\\\\
+Neskôr sa vymyslelo, že neuróny budú mať v mriežke topológiu(umiestnenie) a budeme sa učiť spôsobom "winner-take-most" tak, že neuróny v okolí budú spolupracovať. V prípade, že sú blízko vzruchu a spojenie sa využíva tak ho posilňujeme v opačnom prípade ho potlačujeme. Túto spoluprácu nazývame laterálna interakcia. V SOM-ke sme to nahradili výpočtovo efektívnejším modelom tak, že upravujeme iba neuróny v určitom okolí BMU, a okolie sa s postupným časom učenia zmenšuje. Ako príklad funkcie okolia si môžeme uviesť napríklad "rectangular neighbourhood"\\
 \includegraphics[width=12cm]{imgs/rect_neighb}\\
-Alebo alternatívne gausovské okolie dané vzťahom $h(i^*, i) = exp(\frac{d^2_E(i^*, i)}{\lambda^2}(t))$, kde lambda sa postupne zmenšuje $\lambda(t) = \lambda_i(\frac{\lambda_f}{\lambda_i})^{t/t_{max}}$. $\lambda_i$ je lambda na začiatku výpočtu a $\lambda_f$ je lambda na konci výpočtu. $t$ a $t_{max}$ je aktuálna iterácia a celkový počet iterácii.
+Alebo alternatívne gausovské okolie dané vzťahom $h(i^*, i) = exp(\frac{d^2_E(i^*, i)}{\lambda^2}(t))$, kde lambda sa postupne zmenšuje $\lambda(t) = \lambda_i(\frac{\lambda_f}{\lambda_i})^{t/t_{max}}$. \\
+$\lambda_i$ je lambda na začiatku výpočtu a $\lambda_f$ je lambda na konci výpočtu. $t$ a $t_{max}$ je aktuálna iterácia a celkový počet iterácii.
 \\\\
 Suma sumárum algoritmus vyzerá nasledovne:
 \begin{itemize}
-\item Zoberieme náhodný vstup $x$ a najdeme BMU $i^* = arg min_i |x - w_i|$.
+\item Zoberieme náhodný vstup $x$ a najdeme k nemu BMU $$i^* = arg min_i ||x - w_i||.$$
 \item Upravíme na základe BMU váhy : $$ w_i(t+1) = w_i(t) + \alpha(t)h(i^*,i)[x(t) - w_i(t)] $$
 \item Updatneme parametre(susednost, rychlost ucenia) SOM a opakujeme do konvergencie.
 \end{itemize}
 \subsection{SOM: vektorová kvantizácia, topografické zobrazenie príznakov, algoritmus SOM, parametre, redukcia dimenzie, magnifikačná vlastnosť, príklad použitia.}
-Úlohou vektorovej kvantizácie je nahradiť množinu vstupných dát X množinou referenčných vektorov takzvaných prototypov. To znamená že namiesto pamätania si celej množiny vstupných dát stačí si pamätať oveľa menšiu množinu prototypov. Zároveň si treba aj pamätať príslušnosť každého vstupného vektoru k jednému z prototypov (k tomu ku ktorému je najbližšie, Euklidovská vzdialenosť). Touto kvantizáciou nám vznikne tzv. Voronoiho mozaiky.
+Úlohou vektorovej kvantizácie je nahradiť množinu vstupných dát X množinou referenčných vektorov takzvaných prototypov. To znamená že namiesto pamätania si celej množiny vstupných dát stačí si pamätať oveľa menšiu množinu prototypov. Zároveň si treba aj pamätať príslušnosť každého vstupného vektoru k jednému z prototypov (k tomu ku ktorému je najbližšie, Euklidovská vzdialenosť). Touto kvantizáciou nám vznikne tzv. Voronoiho mozaika.
 \\\\
 \includegraphics[width=12cm]{imgs/voronoi}\\
 Bodky sú prototypy a ku každému prototypu prislúcha oblasť vstupných dát ktoré prislúchajú danému prototypu.
 Kritériom vektorovej kvantizácie je nájdenie optimálnych pozícií týchto prototypov. Ak sa pozeráme na prototypy ako na váhové vektory, predstavuje algoritmus SOM štandardný vektorový kvantifikátor.
 \\\\
-Oba algoritmy PCA aj SOM umožňujú extrahovať hlavné príznaky, hlavné črty vstupných dát. Účelom extrakcie hlavých príznakov je predovšetkým redukcia dimenzie pričom sa snažíme čo najviac zachovať vzájomné vzťahy. Redukciou dimenzie sa uľahčí spracovávanie dát a zároveň získame možnosť vizualizácie dát.
+Oba algoritmy PCA aj SOM umožňujú extrahovať hlavné príznaky, hlavné črty vstupných dát. Účelom extrakcie hlavých príznakov je predovšetkým redukcia dimenzie pričom sa snažíme čo najviac zachovať vzájomné vzťahy. Redukciou dimenzie sa uľahčí spracovávanie dát a zároveň získame možnosť vizualizácie.
 Okrem iného, rozdiel medzi PCA a SOM spočíva v spôsobe reprezentácie príznakov. Pri
 PCA je na reprezentáciu jedného príznaku použitý len jeden neurón (hodnota príznakov je
 kvantifikovaná výstupmi neurónov), v prípade SOM sa na reprezentácii podieľajú všetky
@@ -244,23 +247,23 @@ pozdĺž koordinát mriežky SOM.
 Magnifikačná vlastnosť je vlastnosť mapy aproximovať čo najlepšie distribúciu vstupných dát. V oblastiach kde sú zhustené vstupné dáta bude tak isto zhustené rozloženie váhových vektorov siete. Takúto tendenciu algoritmu SOM možno interpretovať ako snahu o optimálne rozloženie svojich zdrojov. Túto vlastnosť algoritmu popisuje magnifikačný faktor, počet  váhových vektorov pripadajúcich na jednotkovú plochu vstupného priestoru.\\
 \includegraphics[width=12cm]{imgs/magnif}
 \\\\
-Aplikácie SOM je veľa. Spomenuli sme rozpoznávanie reči a robotiku. Pri rozpoznávaní reči sme transformovali akustický rečový signál na sekvenciu hlások pričom sme si vytvorili tzv. fonémovú mapu. Pri robotickom ramene je úlohou dostať koncový bod ramena do určitej pozície. Obrázky sú na slajdoch ale nemyslím si že to chce podrobne vysvetliť.
+Aplikácií SOM je veľa. Spomenuli sme rozpoznávanie reči a robotiku. Pri rozpoznávaní reči sme transformovali akustický rečový signál na sekvenciu hlások pričom sme si vytvorili tzv. fonémovú mapu. Pri robotickom ramene je úlohou dostať koncový bod ramena do určitej pozície. Obrázky sú na slajdoch ale nemyslím si že to chce podrobne vysvetliť.
 
 \subsection{Hybridné modely NS, RBF model: aktivačné vzorce, bázové funkcie, príznakový priestor, problém interpolácie, trénovanie modelu, aproximačné vlastnosti RBF siete.}
-Tento model je istou kombináciou učenia s učiteľom a bez učiteľa. Funguje to veľmi dobre pokiaľ pre podobné vstupy očakávame podobné výstupy. Vačšinou vyžadujeme viac neurónov ako pri ostatných modeloch učených iba s učiteľom. Konkrétne sa pozrieme na model Radial Basis function neural network.
+Tento model je istou kombináciou učenia s učiteľom a bez učiteľa. Funguje to veľmi dobre pokiaľ pre podobné vstupy očakávame podobné výstupy. Väčšinou vyžadujeme viac neurónov ako pri ostatných modeloch učených iba s učiteľom. Konkrétne sa pozrieme na model Radial Basis Function neural network.
 \\\\
 Tradične máme vstupy $x$, váhy $w$ a výstupy $y$.\\
 \includegraphics[width=10cm]{imgs/rbf}\\
 Výstupné aktivácie budú teda podla schémy
- $$y_i = \sum^q_{k=1}w_{ik}h_k(x) + w_{i0} $$, kde $h_k$ je radiálna aktivačná funkcia, ako napríklad $exp(-\frac{|x-v_k|^2}{\sigma_k^2})$, $v_k$ je centrum $k$ a $\sigma_k$ je rozsah. 
+ $$y_i = \sum^q_{k=1}w_{ik}h_k(x) + w_{i0} $$, kde $h_k$ je radiálna aktivačná funkcia, ako napríklad $exp(-\frac{||x-v_k||^2}{\sigma_k^2})$, $v_k$ je centrum $k$ a $\sigma_k$ je rozsah. 
 \\\\
 Cover theorem: \\
 A complex pattern classification problem cast in a high dimension space nonlinearly is more likely to be lineary separable than in low dim. space.
 \\\\
 Interpolation problem:\\
-Pre RBF v podstate dostaneme systém lineárnych rovníc $w^Th_i = d_i, i=1,2,\dots,N$. Ak $H^{-1}$ existuje potom riešením je $w = H^{-1}d$. Ako si môžeme byť ale istý, že interpolačná matic $H$ nie je singulárna?. Na pomoc nám prichádza Michelliho veta: \\
+Pre RBF v podstate dostaneme systém lineárnych rovníc $\textbf{w}^T\textbf{h}_i = d_i, i=1,2,\dots,N$. Ak $H^{-1}$ existuje potom riešením je $w = H^{-1}d$. Ako si môžeme byť ale istí, že interpolačná matic $H$ nie je singulárna?. Na pomoc nám prichádza Michelliho veta: \\
 
-Nech $x_i \in R^N$ je množina rôznych bodov, potom $H(N\times N)$ ktorej $h_{ij} = \phi_{ij}(|x_i - x_j|)$, nie je singulárna. 
+Nech $x_i \in R^N$ je množina rôznych bodov, potom $H(N\times N)$ ktorej $h_{ij} = \phi_{ij}(||x_i - x_j||)$, nie je singulárna. 
 
 Veľa BRF funkcií túto podmienku spĺňa.
 \\\\
@@ -271,14 +274,14 @@ Ako príklady bázových funkcií si môžeme uviesť napríklad nasledovné:\\
 \item Inverse multiquadrics $\phi(r) =  (r^2 + c^2)^{-1/2}$
 \item Cauchey $\phi(r) = \frac{1}{1+r^2}$
 \end{itemize}
-Park a Sandberg dokázali, že za určitých predpokladov (viz Farkaš 136.) existuje pre každú spojitú funkciu f(x) RBF sieť s centrami $v_k$ a rovnakou veľkosťou $\sigma > 0$ taká, že F(x) je blízko f(x). Tj. taká, ktorá dobre aproximuje funkciu f(x).
+Park a Sandberg dokázali, že za určitých predpokladov (viz Farkaš slidy 136.) existuje pre každú spojitú funkciu f(x) RBF sieť s centrami $v_k$ a rovnakou veľkosťou $\sigma > 0$ taká, že F(x) je blízko f(x). Tj. taká, ktorá dobre aproximuje funkciu f(x).
 \\\\
 Trénovanie tejto siete prebieha tak, že rôzne trénujeme prvú vrstvu a inak druhú.
 \begin{itemize}
 \item 1. vrstva - môžeme trénovať napríklad pomocou K-means alebo inej clustrovacej metódy \\\\
 Ak sú dáta distribuované v nejakej štruktúre môžeme použiť napríklad nasledovný vzťah:
-$$ G(|x-v_i|^2) = exp(\frac{-K|x-v_i|^2}{d^2_{max}}), $$ kde $K$ je počet centier, $d_{max} = max_{kl}\{|v_k - v_l|\}$\\ 
-Alebo môžeme použiť K-means kde centrá položíme randomne alebo na nejaké trénovacie body, pre každý trénovací sample nájdeme výťazný stred a tie zaradíme do jedneho clusteru. Teraz updatneme pozíciu stredov tak aby boli v strede svojho clusteru a opakujeme od zaciatku az do konvergencie.
+$$ G(||x-v_i||^2) = exp(\frac{-K||x-v_i||^2}{d^2_{max}}), $$ kde $K$ je počet centier, $d_{max} = max_{kl}\{||v_k - v_l||\}$\\ 
+Alebo môžeme použiť K-means kde centrá položíme randomne alebo na nejaké trénovacie body, pre každý trénovací sample nájdeme víťazný stred a tie zaradíme do jedneho clusteru. Teraz updatneme pozíciu stredov tak aby boli v strede svojho clusteru a opakujeme od zaciatku az do konvergencie.
 \item 2. vrstva - pomocou SGD alebo výpočtom pseudoinverznej matice $H'$, kde potom $W = H'D$
 \end{itemize}
 
@@ -364,7 +367,7 @@ Nech máme vstup $u_i$ a funkciu $f$, vzťahy pre prechod sieťou vyzerajú nasl
 \item $x(t) = f(W^{res}x(t-1) + W^{inp}u(t))$
 \item $y(t) = f^{out}(W^{out}x(t))$
 \end{itemize}
-Kapacitu pamäte prudko závisí od spektrálneho rádiusu, zvykne sa nastaviť zhruba na velkosť 0.9, ktorá ju optimalizuje. Spočítať ju môžeme takto:
+Kapacita pamäte prudko závisí od spektrálneho rádiusu, zvykne sa nastaviť zhruba na velkosť 0.9, ktorá ju optimalizuje. Spočítať ju môžeme takto:
 $$MC = \sum_{k=1}^{k_{max}}MC_k = \sum_{k=1}^{k_{max}}\frac{cov^2(u(t-k),y_k(t)}{var(u(t)) var(y_k(t))}$$
 
 \subsection{Hopfieldov model NS: deterministická dynamika, energia systému, relaxácia, typy atraktorov, autoasociatívna pamäť – nastavenie váh, princíp výpočtu kapacity pamäte.}
@@ -372,7 +375,7 @@ $$MC = \sum_{k=1}^{k_{max}}MC_k = \sum_{k=1}^{k_{max}}\frac{cov^2(u(t-k),y_k(t)}
 Hopfieldov model neurónovej siete vyzerá tak, že má jednu vrstvu, kde každý neurón je prepojený s ostatnými. Každý z neurónov nadobúda stav $S_i = \{-1,1\}, i = 1,\dots, n$ a má váhy $J_{ij}$. Ak $J_{ij} > 0$ nazývame ju excitačná inak inhibičná a definitoricky váha $J_{ii} = 0$. \\\\
 V prípade, že chceme spočítať update váh najprv musíme spočítať:
 \begin{enumerate}
-\item Postsynapticky potencial - $h_i^{int} = \sum J_{ij}S_j$.
+\item Postsynaptický potenciál - $h_i^{int} = \sum J_{ij}S_j$.
 \item Excitačná hranica(threshold) $h_i^{ext}$.
 \item Efektívny postsynaptický potenciál $h_i = h_i^{int} - h_i^{ext}$.
 \item Neuron state update(deterministic) $S_i \leftarrow sgn(h_i) \in \{-1,1\}$ ak $h_i=0$ potom $sgn(h_i) = 1$.
