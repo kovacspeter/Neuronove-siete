@@ -28,6 +28,7 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 \usepackage{multirow}
+\usepackage{cases}
 \setlength{\headheight}{11pt} % Customize the height of the header
 \usepackage{hyperref}
 \hypersetup{
@@ -171,11 +172,30 @@ Každý vektor z $X$ vieme jednoznačne rozložiť $ x = x_{obal} + x_{orto}$ kd
 
 \section{Samoorganizácia a RBF sieť. Otázky 8 až 12.}
 \subsection{Samoorganizácia v NS, základné princípy, pojem učenia bez učiteľa, typy úloh použitia, Ojovo pravidlo učenia pre jeden neurón, vysvetlenie konvergencie.}
-4 základne princípy samoorganizácie:
-\begin{enumerate}\item Samo-zosilnenie,  zmena váh ma sklon k zosilneniu\item Konkurencia - medzi neurónmi, vzhľadom na obmedzené zdroje\item Spolupráca – medzi susednými neurónmi\item Konštrukčná informácia – je získavaná zo vstupných dát ako „knowledge“\end{enumerate}Učenie bez učiteľa je algoritmus učenia, ktorý nemá informáciu o požadovaných aktivitách výstupných neurónov v priebehu trénovania o ktoré by sa mohol opierať. Pojem Učenie bez učiteľa sa používa na opis širokej škály rôznych učiacich sa úloh. Úlohy tohto typu analyzujú sadu objektov, ktoré nemajú priradenú triedu.\\\\Typy úloh:
-\begin{itemize}\item Klasterizácia údajov (vektorová kvantizácia)\item PCA, redukcia dimenzie pričom sa snažíme čo najviac zachovať vzájomné vzťahy\item Topologické zobrazenie príznakov\item Kompresia dát, tak aby sme zachovali čo najviac z pôvodných\end{itemize}Ojovo pravidlo je pravidlo, ktoré hovorí o zmene váh medzi neurónmi. Je to modifikácia štandardného Hebbovho pravidla a vyzerá nasledovne:
-$$w_j(t+1) = \frac{w_j(t) + \alpha yx_j}{|w(t) + \alpha yx|}$$Pre malé $\alpha$ môžeme pomocou taylorovho rozvoja zapísať aj v tvare:
-$$w_j(t+1)= w_j(t)+\alpha yx_j - y^2w_j(t)$$\\\\V prípade jedného neurónu, jeho váhový vektor $w$ konverguje k vlastnému vektoru matice $R<xx^T>$ alebo k prvému hlavnému komponentu. Rozptyl nášho neurónu $\sigma2(n) = <y^2(n)>$, potom konverguje k hlavnému vlastnému číslu.\textcolor{red}{TODO konvergencia nedostatočná}
+
+4 základne princípy samoorganizácie:
+\begin{enumerate}
+\item Samo-zosilnenie,  zmena váh ma sklon k zosilneniu
+\item Konkurencia - medzi neurónmi, vzhľadom na obmedzené zdroje
+\item Spolupráca – medzi susednými neurónmi
+\item Konštrukčná informácia – je získavaná zo vstupných dát ako „knowledge“
+\end{enumerate}
+Učenie bez učiteľa je algoritmus učenia, ktorý nemá informáciu o požadovaných aktivitách výstupných neurónov v priebehu trénovania o ktoré by sa mohol opierať. Pojem Učenie bez učiteľa sa používa na opis širokej škály rôznych učiacich sa úloh. Úlohy tohto typu analyzujú sadu objektov, ktoré nemajú priradenú triedu.
+\\\\
+Typy úloh:
+\begin{itemize}
+\item Klasterizácia údajov (vektorová kvantizácia)
+\item PCA, redukcia dimenzie pričom sa snažíme čo najviac zachovať vzájomné vzťahy
+\item Topologické zobrazenie príznakov
+\item Kompresia dát, tak aby sme zachovali čo najviac z pôvodných
+\end{itemize}
+Ojovo pravidlo je pravidlo, ktoré hovorí o zmene váh medzi neurónmi. Je to modifikácia štandardného Hebbovho pravidla a vyzerá nasledovne:
+$$w_j(t+1) = \frac{w_j(t) + \alpha yx_j}{|w(t) + \alpha yx|}$$
+Pre malé $\alpha$ môžeme pomocou taylorovho rozvoja zapísať aj v tvare:
+$$w_j(t+1)= w_j(t)+\alpha yx_j - y^2w_j(t)$$
+\\\\
+V prípade jedného neurónu, jeho váhový vektor $w$ konverguje k vlastnému vektoru matice $R<xx^T>$ alebo k prvému hlavnému komponentu. Rozptyl nášho neurónu $\sigma2(n) = <y^2(n)>$, potom konverguje k hlavnému vlastnému číslu.
+\textcolor{red}{TODO konvergencia nedostatočná}
 
 \subsection{Metóda hlavných komponentov pomocou algoritmu GHA a APEX, architektúra modelu, vzťah pre adaptáciu váh, pojem vlastných vektorov a vlastných čísel, redukcia dimenzie, aplikácia na kompresiu obrazu.}
 
@@ -210,7 +230,18 @@ Suma sumárum algoritmus vyzerá nasledovne:
 Úlohou vektorovej kvantizácie je nahradiť množinu vstupných dát X množinou referenčných vektorov takzvaných prototypov. To znamená že namiesto pamätania si celej množiny vstupných dát stačí si pamätať oveľa menšiu množinu prototypov. Zároveň si treba aj pamätať príslušnosť každého vstupného vektoru k jednému z prototypov (k tomu ku ktorému je najbližšie, Euklidovská vzdialenosť). Touto kvantizáciou nám vznikne tzv. Voronoiho mozaiky.
 \\\\
 \includegraphics[width=12cm]{imgs/voronoi}\\
-Bodky sú prototypy a ku každému prototypu prislúcha oblasť vstupných dát ktoré prislúchajú danému prototypu.Kritériom vektorovej kvantizácie je nájdenie optimálnych pozícií týchto prototypov. Ak sa pozeráme na prototypy ako na váhové vektory, predstavuje algoritmus SOM štandardný vektorový kvantifikátor.\\\\Oba algoritmy PCA aj SOM umožňujú extrahovať hlavné príznaky, hlavné črty vstupných dát. Účelom extrakcie hlavých príznakov je predovšetkým redukcia dimenzie pričom sa snažíme čo najviac zachovať vzájomné vzťahy. Redukciou dimenzie sa uľahčí spracovávanie dát a zároveň získame možnosť vizualizácie dát.Okrem iného, rozdiel medzi PCA a SOM spočíva v spôsobe reprezentácie príznakov. PriPCA je na reprezentáciu jedného príznaku použitý len jeden neurón (hodnota príznakov jekvantifikovaná výstupmi neurónov), v prípade SOM sa na reprezentácii podieľajú všetkyneuróny (hodnota príznakov je daná pozíciou víťaza). S tým súvisí špecifická vlastnosťSOM - extrahované príznaky sú topologicky zobrazované (angl. feature mapping), a topozdĺž koordinát mriežky SOM.\\\\Magnifikačná vlastnosť je vlastnosť mapy aproximovať čo najlepšie distribúciu vstupných dát. V oblastiach kde sú zhustené vstupné dáta bude tak isto zhustené rozloženie váhových vektorov siete. Takúto tendenciu algoritmu SOM možno interpretovať ako snahu o optimálne rozloženie svojich zdrojov. Túto vlastnosť algoritmu popisuje magnifikačný faktor, počet  váhových vektorov pripadajúcich na jednotkovú plochu vstupného priestoru.\\
+Bodky sú prototypy a ku každému prototypu prislúcha oblasť vstupných dát ktoré prislúchajú danému prototypu.
+Kritériom vektorovej kvantizácie je nájdenie optimálnych pozícií týchto prototypov. Ak sa pozeráme na prototypy ako na váhové vektory, predstavuje algoritmus SOM štandardný vektorový kvantifikátor.
+\\\\
+Oba algoritmy PCA aj SOM umožňujú extrahovať hlavné príznaky, hlavné črty vstupných dát. Účelom extrakcie hlavých príznakov je predovšetkým redukcia dimenzie pričom sa snažíme čo najviac zachovať vzájomné vzťahy. Redukciou dimenzie sa uľahčí spracovávanie dát a zároveň získame možnosť vizualizácie dát.
+Okrem iného, rozdiel medzi PCA a SOM spočíva v spôsobe reprezentácie príznakov. Pri
+PCA je na reprezentáciu jedného príznaku použitý len jeden neurón (hodnota príznakov je
+kvantifikovaná výstupmi neurónov), v prípade SOM sa na reprezentácii podieľajú všetky
+neuróny (hodnota príznakov je daná pozíciou víťaza). S tým súvisí špecifická vlastnosť
+SOM - extrahované príznaky sú topologicky zobrazované (angl. feature mapping), a to
+pozdĺž koordinát mriežky SOM.
+\\\\
+Magnifikačná vlastnosť je vlastnosť mapy aproximovať čo najlepšie distribúciu vstupných dát. V oblastiach kde sú zhustené vstupné dáta bude tak isto zhustené rozloženie váhových vektorov siete. Takúto tendenciu algoritmu SOM možno interpretovať ako snahu o optimálne rozloženie svojich zdrojov. Túto vlastnosť algoritmu popisuje magnifikačný faktor, počet  váhových vektorov pripadajúcich na jednotkovú plochu vstupného priestoru.\\
 \includegraphics[width=12cm]{imgs/magnif}
 \\\\
 Aplikácie SOM je veľa. Spomenuli sme rozpoznávanie reči a robotiku. Pri rozpoznávaní reči sme transformovali akustický rečový signál na sekvenciu hlások pričom sme si vytvorili tzv. fonémovú mapu. Pri robotickom ramene je úlohou dostať koncový bod ramena do určitej pozície. Obrázky sú na slajdoch ale nemyslím si že to chce podrobne vysvetliť.
@@ -255,16 +286,71 @@ Alebo môžeme použiť K-means kde centrá položíme randomne alebo na nejaké
 
 \section{Rekurentné a pamäťové modely. Otázky 13 až 18.}	
 \subsection{NS na spracovanie sekvenčných dát: reprezentácia času, typy úloh pre rekurentné NS. Modely s časovým oknom do minulosti, výhody a nedostatky, príklad použitia.}
-\textcolor{red}{TODO}
 
+Pri spracovaní sekvenčných dát je dôležité, aby výstup siete nebol závislý iba od súčasnej hodnoty, ale aj od predchádzajúcich (prípadne nasledujúcich - bidirectional RNN) hodnôt sekvencie. Tento typ siete je teda vhodný pre riešenie typov úloh, kde výsledok závisí od celého kontextu spracovávaného vstupu. Ide teda napríklad o klasifikácia sekvencií (spracovanie reči - NLP), predikcia alebo generovanie nových sekvencií.
+\\\\
+\subsubsection{Nerekurentné modely}
+Existujú 2 typy sietí - rekurentné (viď ďalšiu otázku) a nerekurentné. Pri nerekurentných modeloch väčšinou hovoríme o dopredných sieťach (MLP), ktoré sa môžu trénovať klasickým back-propagation algoritmom. Aj dopredné siete môžu byť použité na spracovanie sekvencií - použitím tzv. časového okna. Pri tejto technike neplníme sieť iba aktuálnou hodnotou, ale máme fixný počet vstupných neurónov pre predchádzajúce príp. nasledujúce hodnoty sekvencie.
+\begin{center}
+\includegraphics[width=7cm]{imgs/tap}\\
+\end{center}
+\begin{center}
+\includegraphics[width=7cm]{imgs/tapped}\\
+\end{center}
+Tento prístup bol napríklad použitý pri určení výslovnosti anglických hlások (NETtalk), trénovaní FIR filtra (focused neuronal filter alebo rozpoznávanie vyslovených hlások zo spektogramu. Problém pri tomto modely je v tom, že nevie spracovať ľubovolne dlhú sekvenciu - počet vstupných neurónov musí byť fixný a sieť nemá spätnú väzbu od vstupov. Avšak na rozdiel od rekurentných sietí sa jednoduchšie trénuje a nepodlieha napr. problému miznúceho gradientu. 
 
 \subsection{Rekurentné NS: princíp trénovania pomocou algoritmu BPTT a RTRL. Príklad použitia.}
-\textcolor{red}{TODO}
+Graf dopredných sietí tvorí DAG, avšak rekurentné siete môžu obsahovať aj cykly. Hlavnou myšlienkou rekurentných sietí je spätná väzba vstupu - určenie stavu v závislosti od predchádzajúcich vstupov. Pomocou nich sa dá napríklad modelovať mealy-ho automat. Je to niečo ako konečný automat z foje - začíname v určitom stave a do dalších stavov sa presúvame v závislosti od aktuálneho vstupu a stavu, v ktorom sa aktuálne nachádzame. Pravidlá týchto prechodov je možné natrénovať vhodnou rekurentnou sieťou (dopredným modelom s časovým oknom do minulosti to zrejme nie je možné).
+\begin{center}
+\includegraphics[width=7cm]{imgs/mealy}\\
+\end{center}
+Medzi čiastočne rekurentné siete s kontextovou jednotkou patrí:
+\begin{itemize}
+\item Elman - Spätná väzba zo skrytej vrstvy, vie rozpoznať a generovať sekvencie a robiť predikcie. Znázornená na obrázku nižšie. 
+\item Jordan - Spätná väzba  výstupnej vrstvy
+\item Stornetta - moveing average (MA) predchádzajúcichaktivácií (IIR filter)
+\item Mozer - nedá sa použiť Backpropagation
 
+
+\subsubsection{Back-propagation through time - BPTT}
+Rozšírenie klasického BP - rekurentnú sieť "rozbalíme" na doprednú sieť, s hĺbkou rovnou dĺžke sekvencie. 
+\begin{center}
+\includegraphics[width=7cm]{imgs/RNN-unrolled}\\
+\end{center}
+kde $x_i$ reprezentuje vstup, $A$ reprezentuje stav a $h_i$ výstup. Hodnoty stavov sú dané vzťahom:
+$$A_i(t+1) = f(\sum_j w_{ij} A_j(t) + x_i(t))$$
+Back propagation musí byť aplikovaný po spracovaní každej sekvencie. Cieľom je optimalizovať chybovú funkciu:
+$$E(T) = \frac{1}{2} \sum_{t=1}^T \sum_{i \in O} e_i^2(t)$$
+kde $T$ je dĺžka sekvencie. Nech:
+\begin{numcases}{\delta_i(t) = }
+  f'(\textit{net}_i)e_i(t), & $t = T$ \\
+  f'(\textit{net}_i)(e_i(t) + \sum_{l \in O} w_{li} \delta_l(t + 1))), & $1 < t < T$
+\end{numcases}
+Potom je update váh:
+$$\Delta w_{ij} = -\alpha \frac{\partial E(T)}{\partial w_{ij}} = \alpha \sum_{t=2}^T \delta_i(t) A_j(t-1)$$
+Nepraktické pre dlhé sekvencie (neznámej dĺžky), problém miznúceho gradientu .. podobne ako pri hlbokých sieťach.
+
+\subsubsection{Real-time recurrent learning - RTRL}
+Ako názov napovedá, ide o algoritmus schopný učiť sa real-time. Cieľom je optimalizovanie chybovej funkcie:
+$$E(t) = \frac{1}{2} \sum_{i \in O} e_i^2(t)$$
+zderivovaním dostaneme update váh:  
+$$\Delta w_{ij} = -\alpha \frac{\partial E(T)}{\partial w_{ij}} = 
+f'(net_k(t)) [\delta_{ki}^{kr} A_j(t-1)+ \sum_l \frac{w_{kl} \partial A_l(t-1)}{\partial w_{ij}}]
+$$
+kde $l$ sú neuróny vstupujúce do neurónov $k$, $e_i(t) = d_i(t) - A_i(t), i \in O$ (ak je výstup k dispozícii) a platí:
+\begin{numcases}{\delta_{ki}^{kr} = }
+  1, & ak $k = i$ \\
+  0, & inak
+\end{numcases}
+\textbf{Teacher forcing} - nahradzovanie aktuálnych výstupov siete želanými výstupmi (ak sú k dispozícií). Môže urýchliť učenie. \\\\
+Tento typ učenia má veľmi veľké pamäťové a časové nároky.
 
 \subsection{Elmanova sieť: interné reprezentácie pri symbolovej dynamike, Markovovské správanie, architekturálna predispozícia. Model rekurzívnej SOM (RecSOM).}
-\textcolor{red}{TODO}
 
+\end{itemize}
+\begin{center}
+\includegraphics[width=7cm]{imgs/srn_net}\\
+\end{center}
 
 \subsection{Sieť s echo stavmi (ESN): architektúra, inicializácia, trénovanie modelu, vplyv parametrov na vlastnosti rezervoára, echo vlastnosť, pamäťová kapacita.}
 \textcolor{red}{TODO}
