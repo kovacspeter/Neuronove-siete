@@ -168,8 +168,37 @@ Každý vektor z $X$ vieme jednoznačne rozložiť na $ x = x_{obal} + x_{orto}$
 
 
 \subsection{Lineárne modely NS: účel Grammovho-Schmidtovho ortogonalizačného procesu, GI model. Pamäť korelačnej matice ako autoasociatívna pamäť, vzťah pre výpočet váh, presluch, porovnanie s GI.}
-\textcolor{red}{TODO}
 
+\textbf{Gramm-Schidtov ortogonalizačný proces} vytvorí z báze $u_1, u_2, \dots u_n$ ortogonálnu bázu $v_1, v_2, \dots v_n$ takto:
+$$v_1 = u_1$$
+$$v_2 = u_2 - \frac{v_1^Tu_2}{|v_1|^2}$$
+$$v_k = u_k - \sum_{i=1}^{k-1}{\frac{v_i^Tu_k}{|v_i|^2}}$$
+
+\textbf{General Inverse model}: 
+Na to aby sme pridali ďalší vektor do lineárneho obal nepotrebujeme ho vždy nanovo prepočítať, ale stačí pridať nový vektor pomocou nasledujúceho postupu:
+
+
+Nech $\widetilde{x}_1, \widetilde{x}_2 \dots \widetilde{x}_n$ sú vektory určené zo vstupov $x_1, x_2 \dots x_n$:
+$$W(0) = 0$$
+
+$$W(n+1) = W(n) + \frac{\widetilde{x}_{n+1} \widetilde{x}_{n+1}^T}{|\widetilde{x}_{n+1}|^2}$$
+
+Kde $\widetilde{x}_{n+1} = x_{n+1} - W_n x_{n+1}$
+
+\textbf{Pamäť korelačnej matice}
+
+Váha $w_{ij}$ je priamo  umerna korelacii: $w_{ij} \approx \sum_{k=1}^n x_{jk}y_{ik}$ čo sa v maticovom prevedení dá napísať ako $W \approx YX^T$. Uvažujme, ale autoasociatívny prípad: $W \approx X X^T$ a ak sú vstupné vektory ortonormálne dostávame $X^T = X^{-1} = X^+$ a tento model je totožný s GI.
+
+Rekurzívny výpočet CMM (Correlation matrix memory):
+$$W(n+1) = W(n) + x_{n+1}  x_{n+1}^T$$
+
+\textbf{Presluch} sa dá vyjadruje takto: 
+
+Odpoveď na vstup ľubovoľné vstup $x_p$ je vyjadrená: $$Wx_p = X X^T x_p = \sum_{k=1}^n x^k x^{kT} x_p = x_p x_p^T x_p + \sum{k=1;k!=p}^n x^k x^{kT} x_p = x_p |x_p|^2 + C(p)$$ a práve C(p) označuje presluch. Ak by bol presluch nulový tak vstupy $x_1 \dots x_2$ sú ortogonálne. Hodnota presluchu sa dá znížiť posunutím strednej hodnoty zložiek vstupov do nuly.
+
+Krátke vysvetlenie: CMM sa snaží zachytiť korelácie medzi jednotlivými zložkami a na základe nich previazať vstupy zo vstupnej na výstupnú vrstvu (vyššia korelácia => vyššia hodnota váhy). Model sa opiera iba o previazanosti medzi dvojicami a nie previazanosti napr. trojíc, štvoríc, .... 
+\textbf{Porovnanie}
+Ak sú vsupy dostatočne odlišné tak CMM je rýchlejšia alternatíva ku GI. Ale inak GI dáva lepšie výsledky. 
 
 \section{Samoorganizácia a RBF sieť. Otázky 8 až 12.}
 \subsection{Samoorganizácia v NS, základné princípy, pojem učenia bez učiteľa, typy úloh použitia, Ojovo pravidlo učenia pre jeden neurón, vysvetlenie konvergencie.}
