@@ -127,8 +127,20 @@ Učiace pravidlá pre výstupnú a skrytú vrstvu sú rozdielne. Odvodiť by sme
 Medzi aplikácie MLP môžeme zaradiť, rozpoznávanie ručne písaných PSČ, spracovanie obrazu(klasifikácia), čítanie anglického textu, etc...
 
 \subsection{Viacvrstvová dopredná NS ako univerzálny aproximátor funkcií (formulácia teorému), trénovacia a testovacia množina, generalizácia, preučenie, skoré zastavenie učenia, selekcia modelu, validácia modelu. Hlboké učenie NS.}
-\textcolor{red}{TODO}
-
+\includegraphics[width=12cm]{imgs/uni_aprox}\\
+Trénovacou množinou rozumieme dáta, ktoré používame na trénovanie modelu(minimalizáciu chyby). Zvyčajne pri trénovaní modelu trénovacie dáta náhodne rozdelíme na trénovacie a validačné. Na trénovacích dátach optimalizujeme model a jeho úspešnosť vyhodnocujeme na validačných dátach. Treba si uvedomiť, že validačné a testovacie dáta nie su to isté. Validačné používame na odhad generalizácie modelu a testovacie používame až úplne na konci keď už máme nájdený optimálny model na validačných dátach aby sme vyhodnotili jeho úspešnosť.
+\\\\
+Pod pojmom generalizácia máme na mysli odolnosť modelu voči náhodnému šumu alebo aj výkonnosť modelu na nových dátach. K pojmu generalizácia sa viažu pojmu podučenie a preučnie. K podučeniu dochádza keď náš model nemá dostatočnú silu na aproximovanie náhodného rozdelenia, z ktorého sú dáta samplované. Ako príklad by sme mohli uviesť použitie jednoduchého perceptrónu na problem XOR. Naopak k preučeniu dochádza keď náš model je natolko silný, že sa snaží modelovať náhodný šum v dátach. V ľavo môžeme vidieť dobrý model a vpravo preučený.\\
+\includegraphics[width=12cm]{imgs/bias_var}\\
+Proti preučeniu sa dá bojovať rôznymi spôsobmi, jednak môžeme použiť skoré zastavenie modelu, čo je technika ktorá po každých pár epochách vyhodnocuje validačnú chybu. V prpade, že validačná chyba začne stúpať vrátime sa o krok späť a ukončíme trénovanie.
+\\\\
+Ďalším spôsobom boja proti preučeniu je takzvaná regularizácia, pri ktorej sa môžeme napríklad snažiť penalizovať velké váhy v neurónoch.
+\\\\
+Pri selekcii potrebujeme zistiť nastavenie rôznych parametrov ako je počet vrstiev a počet neurónov v nich, rýchlosť učenia poprípade iné parametr. Vhodnou metódou zisťovania úspešnosti modelu je k-fold cross validation, čo je metóda pri ktorej rozdelíme dáta na náhodných $k$ podmnožín. Následne vyberem $k-1$ z nich na ktorých model natrénujem a poslednú podmnožinu použijem na validáciu úspešnosti modelu. Toto spravím $k$ krát - zakaždým trénujem a validujem na inej podmnožine. Suma sumárum dostanem $k$ rôznych validačných hodnôt. Tie sa zvyknú spriemerovať a poprípade sa z nich zvykne vypočítať ešte aj smerodajná odchýlka. 
+\\
+Tento postup zopakujem pre všetky možnosti uvažovaných parametrov a vyberem model ktorý ma najmenšiu priemernú chybu, prípadne vezmem do úvahy aj smerodajnú odchylku.
+\\\\
+Pod pojmom deep learning sa rozumejú siete, ktoré majú viac vrstiev.
 
 \subsection{Lineárne modely NS: vzťah pre riešenie systému lin. rovníc v jednovrstvovej sieti, pojem pseudoinverzie matice, autoasociatívna pamäť: lineárny obal, princíp funkcie modelu, detektor novosti.}
 Nech máme trénovaciu množinu $A_{train} = \{ (x^{(p)}, y^{(p)}), p=1,\cdots,N \}$ a hľadáme maticu $W$, ktorá spĺňa $$y^{(p)} = Wx^{(p)}, \forall p$$
