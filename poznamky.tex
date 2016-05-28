@@ -175,11 +175,22 @@ Každý vektor z $X$ vieme jednoznačne rozložiť $ x = x_{obal} + x_{orto}$ kd
 \begin{enumerate}\item Samo-zosilnenie,  zmena váh ma sklon k zosilneniu\item Konkurencia - medzi neurónmi, vzhľadom na obmedzené zdroje\item Spolupráca – medzi susednými neurónmi\item Konštrukčná informácia – je získavaná zo vstupných dát ako „knowledge“\end{enumerate}Učenie bez učiteľa je algoritmus učenia, ktorý nemá informáciu o požadovaných aktivitách výstupných neurónov v priebehu trénovania o ktoré by sa mohol opierať. Pojem Učenie bez učiteľa sa používa na opis širokej škály rôznych učiacich sa úloh. Úlohy tohto typu analyzujú sadu objektov, ktoré nemajú priradenú triedu.\\\\Typy úloh:
 \begin{itemize}\item Klasterizácia údajov (vektorová kvantizácia)\item PCA, redukcia dimenzie pričom sa snažíme čo najviac zachovať vzájomné vzťahy\item Topologické zobrazenie príznakov\item Kompresia dát, tak aby sme zachovali čo najviac z pôvodných\end{itemize}Ojovo pravidlo je pravidlo, ktoré hovorí o zmene váh medzi neurónmi. Je to modifikácia štandardného Hebbovho pravidla a vyzerá nasledovne:
 $$w_j(t+1) = \frac{w_j(t) + \alpha yx_j}{|w(t) + \alpha yx|}$$Pre malé $\alpha$ môžeme pomocou taylorovho rozvoja zapísať aj v tvare:
-$w_j(t+1)= w_j(t)+\alpha*y*x_j - y^2*w_j(t)$\\\\V prípade jedného neurónu, jeho váhový vektor $w$ konverguje k vlastnému vektoru matice $R<xx^T>$ alebo k prvému hlavnému komponentu. Rozptyl nášho neurónu $\sigma2(n) = <y^2(n)>$, potom konverguje k hlavnému vlastnému číslu.\textcolor{red}{TODO konvergencia nedostatočná}
+$$w_j(t+1)= w_j(t)+\alpha yx_j - y^2w_j(t)$$\\\\V prípade jedného neurónu, jeho váhový vektor $w$ konverguje k vlastnému vektoru matice $R<xx^T>$ alebo k prvému hlavnému komponentu. Rozptyl nášho neurónu $\sigma2(n) = <y^2(n)>$, potom konverguje k hlavnému vlastnému číslu.\textcolor{red}{TODO konvergencia nedostatočná}
 
 \subsection{Metóda hlavných komponentov pomocou algoritmu GHA a APEX, architektúra modelu, vzťah pre adaptáciu váh, pojem vlastných vektorov a vlastných čísel, redukcia dimenzie, aplikácia na kompresiu obrazu.}
-\textcolor{red}{TODO}
 
+Metóda hlavných komponentov nám v priestore parametrov trénovacích dát nájde také smery, v ktorých majú dáta najväčšiu varianciu. Následne keď chceme redukovať dimenzionalitu pristoru predpokladáme, že smery s najvačšou varianciou sú najdôležitejšie.
+\\\\
+Pozrime sa na algoritmus GHA. Architektúra modelu GHA je jednovrstvová sieť s $n$ vstupmi a $p$ výstupmi. Generalizovaný Hebbovský algoritmus na aktualizáciu váh je v tvare
+ $$\Delta w_{ij} = \alpha y_i(x_j - \sum_{k=1}^i y_kw_{kj}).$$
+To čo GHA robí je, že extraktuje $p$ hlavných komponentov korelačnej matice vstupných dát. Výhodou oproti klasickému PCA je, že nemusíme počítať korelačnú maticu a zároveň je to výpočtovo o dosť lacnejšie ak máme prípad $p << n$. Taktiež sa dá dokázať, že po skonvergovaní dostaneme usporiadané hlavné komponenty a taktiež, že výsledok je reprodukovatelný až na znamienka. 
+\\\\
+Adaptive Principal component EXtraction(APEX) - je algoritmus, ktorý používa opačný spôsob učenia, tj. anti-Hebbovské učenie. Architektúra siete je opať jednovrstvová ale teraz má naviac laterálne spojenia(v rovnakej vrstve). Hlavné komponenty hľadá iteratívnym prípstupom, že keď ak by dostala $i-1$ hlavných komponentov tak z nich vypočíta $i$-ty hlavný komponent. $I$-ty neurón má teda okrem klasických váh $w_i$ aj laterálne $$u_i = [u_{i1}, \dots, u_{i-1}]^T$$. Výstup siete spočítame pomocou vzťahu 
+$$ y_i = w_i^Tx + u_i^Ty_{i-1}, \text{  kde } y_{i-1} = [y_1, y_2, \dots, y_{i-1}]^T. $$
+Aby sme našli hlavné komponenty, dopredné váhy potom trénujeme pomocou Ojovho pravidla a laterálne váhy pomocou anti-Hebbovského pravidla(inhibičného), ktoré má tvar podobne ako klasické Hebbovské pravidlo akurát je tam mínus: $$ \Delta u_{ik}= -\alpha y_i(y_k + y_iu_{ik}). $$
+Keď to správne naimplementujeme dopredné váhy by mali konvergovať k vlastným vektorom korelačnej matice vstupov a laterálne interakcie k nulovému vektoru.
+\\\\
+Nech máme ľubovoľný obrázok vieme ho previesť do šedotónového. Následne môžeme na podobrázkoch velkosti 8x8 spustiť naše PCA algoritmy, ktoré nájdu vlastné vektory k týmto podobrázkom. To čo vidím, že sa deje je nejaká forma rasterizácie.
 
 \subsection{Učenie so súťažením (typu “winner-take-all”), nevýhody. Neurobiologická motivácia algoritmu SOM, laterálna interakcia a jej náhrada v SOM, sumarizácia algoritmu, voľba parametrov modelu.}
 Učenie so súťažením je biologicky motivovaná tak, že čím viac sa synapsie používajú tým by mali byť silnejšie. Výskumníci sa tiež inšpirovali modelom toho ako sietnica mapuje svoje impulzy v mozgu. Model samoorganizujúcej sa mapy(SOM) je model s dvomi vrstvami vstupnou a výstupnou. Výstupná vrstva zvykne byť vačšinou organizovaná v mriežke, najčastejšie 2D(kvôli vizualizácii) ale občas sa využíva aj viac D mriežka. Každý neurón na vstupnej vrstve je prepojený s každým na výstupnej. \\
