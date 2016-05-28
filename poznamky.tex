@@ -171,11 +171,30 @@ Každý vektor z $X$ vieme jednoznačne rozložiť $ x = x_{obal} + x_{orto}$ kd
 
 \section{Samoorganizácia a RBF sieť. Otázky 8 až 12.}
 \subsection{Samoorganizácia v NS, základné princípy, pojem učenia bez učiteľa, typy úloh použitia, Ojovo pravidlo učenia pre jeden neurón, vysvetlenie konvergencie.}
-4 základne princípy samoorganizácie:
-\begin{enumerate}\item Samo-zosilnenie,  zmena váh ma sklon k zosilneniu\item Konkurencia - medzi neurónmi, vzhľadom na obmedzené zdroje\item Spolupráca – medzi susednými neurónmi\item Konštrukčná informácia – je získavaná zo vstupných dát ako „knowledge“\end{enumerate}Učenie bez učiteľa je algoritmus učenia, ktorý nemá informáciu o požadovaných aktivitách výstupných neurónov v priebehu trénovania o ktoré by sa mohol opierať. Pojem Učenie bez učiteľa sa používa na opis širokej škály rôznych učiacich sa úloh. Úlohy tohto typu analyzujú sadu objektov, ktoré nemajú priradenú triedu.\\\\Typy úloh:
-\begin{itemize}\item Klasterizácia údajov (vektorová kvantizácia)\item PCA, redukcia dimenzie pričom sa snažíme čo najviac zachovať vzájomné vzťahy\item Topologické zobrazenie príznakov\item Kompresia dát, tak aby sme zachovali čo najviac z pôvodných\end{itemize}Ojovo pravidlo je pravidlo, ktoré hovorí o zmene váh medzi neurónmi. Je to modifikácia štandardného Hebbovho pravidla a vyzerá nasledovne:
-$$w_j(t+1) = \frac{w_j(t) + \alpha yx_j}{|w(t) + \alpha yx|}$$Pre malé $\alpha$ môžeme pomocou taylorovho rozvoja zapísať aj v tvare:
-$$w_j(t+1)= w_j(t)+\alpha yx_j - y^2w_j(t)$$\\\\V prípade jedného neurónu, jeho váhový vektor $w$ konverguje k vlastnému vektoru matice $R<xx^T>$ alebo k prvému hlavnému komponentu. Rozptyl nášho neurónu $\sigma2(n) = <y^2(n)>$, potom konverguje k hlavnému vlastnému číslu.\textcolor{red}{TODO konvergencia nedostatočná}
+
+4 základne princípy samoorganizácie:
+\begin{enumerate}
+\item Samo-zosilnenie,  zmena váh ma sklon k zosilneniu
+\item Konkurencia - medzi neurónmi, vzhľadom na obmedzené zdroje
+\item Spolupráca – medzi susednými neurónmi
+\item Konštrukčná informácia – je získavaná zo vstupných dát ako „knowledge“
+\end{enumerate}
+Učenie bez učiteľa je algoritmus učenia, ktorý nemá informáciu o požadovaných aktivitách výstupných neurónov v priebehu trénovania o ktoré by sa mohol opierať. Pojem Učenie bez učiteľa sa používa na opis širokej škály rôznych učiacich sa úloh. Úlohy tohto typu analyzujú sadu objektov, ktoré nemajú priradenú triedu.
+\\\\
+Typy úloh:
+\begin{itemize}
+\item Klasterizácia údajov (vektorová kvantizácia)
+\item PCA, redukcia dimenzie pričom sa snažíme čo najviac zachovať vzájomné vzťahy
+\item Topologické zobrazenie príznakov
+\item Kompresia dát, tak aby sme zachovali čo najviac z pôvodných
+\end{itemize}
+Ojovo pravidlo je pravidlo, ktoré hovorí o zmene váh medzi neurónmi. Je to modifikácia štandardného Hebbovho pravidla a vyzerá nasledovne:
+$$w_j(t+1) = \frac{w_j(t) + \alpha yx_j}{|w(t) + \alpha yx|}$$
+Pre malé $\alpha$ môžeme pomocou taylorovho rozvoja zapísať aj v tvare:
+$$w_j(t+1)= w_j(t)+\alpha yx_j - y^2w_j(t)$$
+\\\\
+V prípade jedného neurónu, jeho váhový vektor $w$ konverguje k vlastnému vektoru matice $R<xx^T>$ alebo k prvému hlavnému komponentu. Rozptyl nášho neurónu $\sigma2(n) = <y^2(n)>$, potom konverguje k hlavnému vlastnému číslu.
+\textcolor{red}{TODO konvergencia nedostatočná}
 
 \subsection{Metóda hlavných komponentov pomocou algoritmu GHA a APEX, architektúra modelu, vzťah pre adaptáciu váh, pojem vlastných vektorov a vlastných čísel, redukcia dimenzie, aplikácia na kompresiu obrazu.}
 
@@ -210,7 +229,18 @@ Suma sumárum algoritmus vyzerá nasledovne:
 Úlohou vektorovej kvantizácie je nahradiť množinu vstupných dát X množinou referenčných vektorov takzvaných prototypov. To znamená že namiesto pamätania si celej množiny vstupných dát stačí si pamätať oveľa menšiu množinu prototypov. Zároveň si treba aj pamätať príslušnosť každého vstupného vektoru k jednému z prototypov (k tomu ku ktorému je najbližšie, Euklidovská vzdialenosť). Touto kvantizáciou nám vznikne tzv. Voronoiho mozaiky.
 \\\\
 \includegraphics[width=12cm]{imgs/voronoi}\\
-Bodky sú prototypy a ku každému prototypu prislúcha oblasť vstupných dát ktoré prislúchajú danému prototypu.Kritériom vektorovej kvantizácie je nájdenie optimálnych pozícií týchto prototypov. Ak sa pozeráme na prototypy ako na váhové vektory, predstavuje algoritmus SOM štandardný vektorový kvantifikátor.\\\\Oba algoritmy PCA aj SOM umožňujú extrahovať hlavné príznaky, hlavné črty vstupných dát. Účelom extrakcie hlavých príznakov je predovšetkým redukcia dimenzie pričom sa snažíme čo najviac zachovať vzájomné vzťahy. Redukciou dimenzie sa uľahčí spracovávanie dát a zároveň získame možnosť vizualizácie dát.Okrem iného, rozdiel medzi PCA a SOM spočíva v spôsobe reprezentácie príznakov. PriPCA je na reprezentáciu jedného príznaku použitý len jeden neurón (hodnota príznakov jekvantifikovaná výstupmi neurónov), v prípade SOM sa na reprezentácii podieľajú všetkyneuróny (hodnota príznakov je daná pozíciou víťaza). S tým súvisí špecifická vlastnosťSOM - extrahované príznaky sú topologicky zobrazované (angl. feature mapping), a topozdĺž koordinát mriežky SOM.\\\\Magnifikačná vlastnosť je vlastnosť mapy aproximovať čo najlepšie distribúciu vstupných dát. V oblastiach kde sú zhustené vstupné dáta bude tak isto zhustené rozloženie váhových vektorov siete. Takúto tendenciu algoritmu SOM možno interpretovať ako snahu o optimálne rozloženie svojich zdrojov. Túto vlastnosť algoritmu popisuje magnifikačný faktor, počet  váhových vektorov pripadajúcich na jednotkovú plochu vstupného priestoru.\\
+Bodky sú prototypy a ku každému prototypu prislúcha oblasť vstupných dát ktoré prislúchajú danému prototypu.
+Kritériom vektorovej kvantizácie je nájdenie optimálnych pozícií týchto prototypov. Ak sa pozeráme na prototypy ako na váhové vektory, predstavuje algoritmus SOM štandardný vektorový kvantifikátor.
+\\\\
+Oba algoritmy PCA aj SOM umožňujú extrahovať hlavné príznaky, hlavné črty vstupných dát. Účelom extrakcie hlavých príznakov je predovšetkým redukcia dimenzie pričom sa snažíme čo najviac zachovať vzájomné vzťahy. Redukciou dimenzie sa uľahčí spracovávanie dát a zároveň získame možnosť vizualizácie dát.
+Okrem iného, rozdiel medzi PCA a SOM spočíva v spôsobe reprezentácie príznakov. Pri
+PCA je na reprezentáciu jedného príznaku použitý len jeden neurón (hodnota príznakov je
+kvantifikovaná výstupmi neurónov), v prípade SOM sa na reprezentácii podieľajú všetky
+neuróny (hodnota príznakov je daná pozíciou víťaza). S tým súvisí špecifická vlastnosť
+SOM - extrahované príznaky sú topologicky zobrazované (angl. feature mapping), a to
+pozdĺž koordinát mriežky SOM.
+\\\\
+Magnifikačná vlastnosť je vlastnosť mapy aproximovať čo najlepšie distribúciu vstupných dát. V oblastiach kde sú zhustené vstupné dáta bude tak isto zhustené rozloženie váhových vektorov siete. Takúto tendenciu algoritmu SOM možno interpretovať ako snahu o optimálne rozloženie svojich zdrojov. Túto vlastnosť algoritmu popisuje magnifikačný faktor, počet  váhových vektorov pripadajúcich na jednotkovú plochu vstupného priestoru.\\
 \includegraphics[width=12cm]{imgs/magnif}
 \\\\
 Aplikácie SOM je veľa. Spomenuli sme rozpoznávanie reči a robotiku. Pri rozpoznávaní reči sme transformovali akustický rečový signál na sekvenciu hlások pričom sme si vytvorili tzv. fonémovú mapu. Pri robotickom ramene je úlohou dostať koncový bod ramena do určitej pozície. Obrázky sú na slajdoch ale nemyslím si že to chce podrobne vysvetliť.
@@ -267,15 +297,26 @@ Alebo môžeme použiť K-means kde centrá položíme randomne alebo na nejaké
 
 
 \subsection{Sieť s echo stavmi (ESN): architektúra, inicializácia, trénovanie modelu, vplyv parametrov na vlastnosti rezervoára, echo vlastnosť, pamäťová kapacita.}
-\textcolor{red}{TODO}
-
+Sieťe s echo stavmi sú typ rekurentnej neurónovej siete, ktorá má vstupnú vrstvu, rezervoár a výstupnú vrstvu.
+Spojenia na vstupnej vrstve a v rekurentnej vrstve sa snažíme iba vhodne nainicializovat ale netrénujeme ich. To čo trénujeme je výstupná vrstva. Keďže sa teda snažíme trénovať len výstupnú vrstvu tak to vieme ľahko spraviť analyticky, čo je jednak rýchle a zároveň sa aj ľahko implementuje.\\
+\includegraphics[width=10cm]{imgs/esn}\\
+Na inicializáciu vstupných váh používame malé hodnoty z normálneho alebo rovnomerného rozdelenia. Rezervoár sa snažíme inicializovať tak, aby ma echo-state vlastnosť. \\
+\includegraphics[width=10cm]{imgs/echo_prop}\\
+Výstupnú vrstvu trénujeme pomocou pseudoinverznej matice $X$. 
+Nech máme vstup $u_i$ a funkciu $f$, vzťahy pre prechod sieťou vyzerajú nasledovne: 
+\begin{itemize}
+\item $x(t) = f(W^{res}x(t-1) + W^{inp}u(t))$
+\item $y(t) = f^{out}(W^{out}x(t))$
+\end{itemize}
+Kapacitu pamäte prudko závisí od spektrálneho rádiusu, zvykne sa nastaviť zhruba na velkosť 0.9, ktorá ju optimalizuje. Spočítať ju môžeme takto:
+$$MC = \sum_{k=1}^{k_{max}}MC_k = \sum_{k=1}^{k_{max}}\frac{cov^2(u(t-k),y_k(t)}{var(u(t)) var(y_k(t))}$$
 
 \subsection{Hopfieldov model NS: deterministická dynamika, energia systému, relaxácia, typy atraktorov, autoasociatívna pamäť – nastavenie váh, princíp výpočtu kapacity pamäte.}
 
 Hopfieldov model neurónovej siete vyzerá tak, že má jednu vrstvu, kde každý neurón je prepojený s ostatnými. Každý z neurónov nadobúda stav $S_i = \{-1,1\}, i = 1,\dots, n$ a má váhy $J_{ij}$. Ak $J_{ij} > 0$ nazývame ju excitačná inak inhibičná a definitoricky váha $J_{ii} = 0$. \\\\
 V prípade, že chceme spočítať update váh najprv musíme spočítať:
 \begin{enumerate}
-\item Postsynapticky potencial - $h_i^int = \sum J_{ij}S_j$.
+\item Postsynapticky potencial - $h_i^{int} = \sum J_{ij}S_j$.
 \item Excitačná hranica(threshold) $h_i^{ext}$.
 \item Efektívny postsynaptický potenciál $h_i = h_i^{int} - h_i^{ext}$.
 \item Neuron state update(deterministic) $S_i \leftarrow sgn(h_i) \in \{-1,1\}$ ak $h_i=0$ potom $sgn(h_i) = 1$.
