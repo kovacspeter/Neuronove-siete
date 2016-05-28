@@ -164,7 +164,35 @@ Tradične máme vstupy $x$, váhy $w$ a výstupy $y$.\\
 Výstupné aktivácie budú teda podla schémy
  $$y_i = \sum^q_{k=1}w_{ik}h_k(x) + w_{i0} $$, kde $h_k$ je radiálna aktivačná funkcia, ako napríklad $exp(-\frac{|x-v_k|^2}{\sigma_k^2})$, $v_k$ je centrum $k$ a $\sigma_k$ je rozsah. 
 \\\\
-\textcolor{red}{TODO} - dorobim PETO
+Cover theorem: \\
+A complex pattern classification problem cast in a high dimension space nonlinearly is more likely to be lineary separable than in low dim. space.
+\\\\
+Interpolation problem:\\
+Pre RBF v podstate dostaneme systém lineárnych rovníc $w^Th_i = d_i, i=1,2,\dots,N$. Ak $H^{-1}$ existuje potom riešením je $w = H^{-1}d$. Ako si môžeme byť ale istý, že interpolačná matic $H$ nie je singulárna?. Na pomoc nám prichádza Michelliho veta: \\
+
+Nech $x_i \in R^N$ je množina rôznych bodov, potom $H(N\times N)$ ktorej $h_{ij} = \phi_{ij}(|x_i - x_j|)$, nie je singulárna. 
+
+Veľa BRF funkcií túto podmienku spĺňa.
+\\\\
+Ako príklady bázových funkcií si môžeme uviesť napríklad nasledovné:\\
+\begin{itemize}
+\item Gaussian $\phi(r) = exp(-\frac{r^2}{\sigma^2})$
+\item Multiquadrics $\phi(r) = (r^2 + c^2)^{1/2}$
+\item Inverse multiquadrics $\phi(r) =  (r^2 + c^2)^{-1/2}$
+\item Cauchey $\phi(r) = \frac{1}{1+r^2}$
+\end{itemize}
+Park a Sandberg dokázali, že za určitých predpokladov (viz Farkaš 136.) existuje pre každú spojitú funkciu f(x) RBF sieť s centrami $v_k$ a rovnakou veľkosťou $\sigma > 0$ taká, že F(x) je blízko f(x). Tj. taká, ktorá dobre aproximuje funkciu f(x).
+\\\\
+Trénovanie tejto siete prebieha tak, že rôzne trénujeme prvú vrstvu a inak druhú.
+\begin{itemize}
+\item 1. vrstva - môžeme trénovať napríklad pomocou K-means alebo inej clustrovacej metódy \\\\
+Ak sú dáta distribuované v nejakej štruktúre môžeme použiť napríklad nasledovný vzťah:
+$$ G(|x-v_i|^2) = exp(\frac{-K|x-v_i|^2}{d^2_{max}}), $$ kde $K$ je počet centier, $d_{max} = max_{kl}\{|v_k - v_l|\}$\\ 
+Alebo môžeme použiť K-means kde centrá položíme randomne alebo na nejaké trénovacie body, pre každý trénovací sample nájdeme výťazný stred a tie zaradíme do jedneho clusteru. Teraz updatneme pozíciu stredov tak aby boli v strede svojho clusteru a opakujeme od zaciatku az do konvergencie.
+\item 2. vrstva - pomocou SGD alebo výpočtom pseudoinverznej matice $H'$, kde potom $W = H'D$
+\end{itemize}
+
+
 
 \section{Rekurentné a pamäťové modely. Otázky 13 až 18.}	
 \subsection{NS na spracovanie sekvenčných dát: reprezentácia času, typy úloh pre rekurentné NS. Modely s časovým oknom do minulosti, výhody a nedostatky, príklad použitia.}
