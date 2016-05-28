@@ -171,8 +171,11 @@ Každý vektor z $X$ vieme jednoznačne rozložiť $ x = x_{obal} + x_{orto}$ kd
 
 \section{Samoorganizácia a RBF sieť. Otázky 8 až 12.}
 \subsection{Samoorganizácia v NS, základné princípy, pojem učenia bez učiteľa, typy úloh použitia, Ojovo pravidlo učenia pre jeden neurón, vysvetlenie konvergencie.}
-\textcolor{red}{TODO}
-
+4 základne princípy samoorganizácie:
+\begin{enumerate}\item Samo-zosilnenie,  zmena váh ma sklon k zosilneniu\item Konkurencia - medzi neurónmi, vzhľadom na obmedzené zdroje\item Spolupráca – medzi susednými neurónmi\item Konštrukčná informácia – je získavaná zo vstupných dát ako „knowledge“\end{enumerate}Učenie bez učiteľa je algoritmus učenia, ktorý nemá informáciu o požadovaných aktivitách výstupných neurónov v priebehu trénovania o ktoré by sa mohol opierať. Pojem Učenie bez učiteľa sa používa na opis širokej škály rôznych učiacich sa úloh. Úlohy tohto typu analyzujú sadu objektov, ktoré nemajú priradenú triedu.\\\\Typy úloh:
+\begin{itemize}\item Klasterizácia údajov (vektorová kvantizácia)\item PCA, redukcia dimenzie pričom sa snažíme čo najviac zachovať vzájomné vzťahy\item Topologické zobrazenie príznakov\item Kompresia dát, tak aby sme zachovali čo najviac z pôvodných\end{itemize}Ojovo pravidlo je pravidlo, ktoré hovorí o zmene váh medzi neurónmi. Je to modifikácia štandardného Hebbovho pravidla a vyzerá nasledovne:
+$$w_j(t+1) = \frac{w_j(t) + \alpha yx_j}{|w(t) + \alpha yx|}$$Pre malé $\alpha$ môžeme pomocou taylorovho rozvoja zapísať aj v tvare:
+$w_j(t+1)= w_j(t)+\alpha*y*x_j - y^2*w_j(t)$\\\\V prípade jedného neurónu, jeho váhový vektor $w$ konverguje k vlastnému vektoru matice $R<xx^T>$ alebo k prvému hlavnému komponentu. Rozptyl nášho neurónu $\sigma2(n) = <y^2(n)>$, potom konverguje k hlavnému vlastnému číslu.\textcolor{red}{TODO konvergencia nedostatočná}
 
 \subsection{Metóda hlavných komponentov pomocou algoritmu GHA a APEX, architektúra modelu, vzťah pre adaptáciu váh, pojem vlastných vektorov a vlastných čísel, redukcia dimenzie, aplikácia na kompresiu obrazu.}
 \textcolor{red}{TODO}
@@ -193,8 +196,13 @@ Suma sumárum algoritmus vyzerá nasledovne:
 \item Updatneme parametre(susednost, rychlost ucenia) SOM a opakujeme do konvergencie.
 \end{itemize}
 \subsection{SOM: vektorová kvantizácia, topografické zobrazenie príznakov, algoritmus SOM, parametre, redukcia dimenzie, magnifikačná vlastnosť, príklad použitia.}
-\textcolor{red}{TODO}
-
+Úlohou vektorovej kvantizácie je nahradiť množinu vstupných dát X množinou referenčných vektorov takzvaných prototypov. To znamená že namiesto pamätania si celej množiny vstupných dát stačí si pamätať oveľa menšiu množinu prototypov. Zároveň si treba aj pamätať príslušnosť každého vstupného vektoru k jednému z prototypov (k tomu ku ktorému je najbližšie, Euklidovská vzdialenosť). Touto kvantizáciou nám vznikne tzv. Voronoiho mozaiky.
+\\\\
+\includegraphics[width=12cm]{imgs/voronoi}\\
+Bodky sú prototypy a ku každému prototypu prislúcha oblasť vstupných dát ktoré prislúchajú danému prototypu.Kritériom vektorovej kvantizácie je nájdenie optimálnych pozícií týchto prototypov. Ak sa pozeráme na prototypy ako na váhové vektory, predstavuje algoritmus SOM štandardný vektorový kvantifikátor.\\\\Oba algoritmy PCA aj SOM umožňujú extrahovať hlavné príznaky, hlavné črty vstupných dát. Účelom extrakcie hlavých príznakov je predovšetkým redukcia dimenzie pričom sa snažíme čo najviac zachovať vzájomné vzťahy. Redukciou dimenzie sa uľahčí spracovávanie dát a zároveň získame možnosť vizualizácie dát.Okrem iného, rozdiel medzi PCA a SOM spočíva v spôsobe reprezentácie príznakov. PriPCA je na reprezentáciu jedného príznaku použitý len jeden neurón (hodnota príznakov jekvantifikovaná výstupmi neurónov), v prípade SOM sa na reprezentácii podieľajú všetkyneuróny (hodnota príznakov je daná pozíciou víťaza). S tým súvisí špecifická vlastnosťSOM - extrahované príznaky sú topologicky zobrazované (angl. feature mapping), a topozdĺž koordinát mriežky SOM.\\\\Magnifikačná vlastnosť je vlastnosť mapy aproximovať čo najlepšie distribúciu vstupných dát. V oblastiach kde sú zhustené vstupné dáta bude tak isto zhustené rozloženie váhových vektorov siete. Takúto tendenciu algoritmu SOM možno interpretovať ako snahu o optimálne rozloženie svojich zdrojov. Túto vlastnosť algoritmu popisuje magnifikačný faktor, počet  váhových vektorov pripadajúcich na jednotkovú plochu vstupného priestoru.\\
+\includegraphics[width=12cm]{imgs/magnif}
+\\\\
+Aplikácie SOM je veľa. Spomenuli sme rozpoznávanie reči a robotiku. Pri rozpoznávaní reči sme transformovali akustický rečový signál na sekvenciu hlások pričom sme si vytvorili tzv. fonémovú mapu. Pri robotickom ramene je úlohou dostať koncový bod ramena do určitej pozície. Obrázky sú na slajdoch ale nemyslím si že to chce podrobne vysvetliť.
 
 \subsection{Hybridné modely NS, RBF model: aktivačné vzorce, bázové funkcie, príznakový priestor, problém interpolácie, trénovanie modelu, aproximačné vlastnosti RBF siete.}
 Tento model je istou kombináciou učenia s učiteľom a bez učiteľa. Funguje to veľmi dobre pokiaľ pre podobné vstupy očakávame podobné výstupy. Vačšinou vyžadujeme viac neurónov ako pri ostatných modeloch učených iba s učiteľom. Konkrétne sa pozrieme na model Radial Basis function neural network.
