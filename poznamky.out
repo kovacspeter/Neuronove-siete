@@ -14,8 +14,11 @@
 \BOOKMARK [2][-]{subsection.2.5}{Hybridn\351 modely NS, RBF model: aktivacn\351 vzorce, b\341zov\351 funkcie, pr\355znakov\375 priestor, probl\351m interpol\341cie, tr\351novanie modelu, aproximacn\351 vlastnosti RBF siete.}{section.2}% 14
 \BOOKMARK [1][-]{section.3}{Rekurentn\351 a pam\344tov\351 modely. Ot\341zky 13 a\236 18.}{}% 15
 \BOOKMARK [2][-]{subsection.3.1}{NS na spracovanie sekvencn\375ch d\341t: reprezent\341cia casu, typy \372loh pre rekurentn\351 NS. Modely s casov\375m oknom do minulosti, v\375hody a nedostatky, pr\355klad pou\236itia.}{section.3}% 16
-\BOOKMARK [2][-]{subsection.3.2}{Rekurentn\351 NS: princ\355p tr\351novania pomocou algoritmu BPTT a RTRL. Pr\355klad pou\236itia.}{section.3}% 17
-\BOOKMARK [2][-]{subsection.3.3}{Elmanova siet: intern\351 reprezent\341cie pri symbolovej dynamike, Markovovsk\351 spr\341vanie, architektur\341lna predispoz\355cia. Model rekurz\355vnej SOM \(RecSOM\).}{section.3}% 18
-\BOOKMARK [2][-]{subsection.3.4}{Siet s echo stavmi \(ESN\): architekt\372ra, inicializ\341cia, tr\351novanie modelu, vplyv parametrov na vlastnosti rezervo\341ra, echo vlastnost, pam\344tov\341 kapacita.}{section.3}% 19
-\BOOKMARK [2][-]{subsection.3.5}{Hopfieldov model NS: deterministick\341 dynamika, energia syst\351mu, relax\341cia, typy atraktorov, autoasociat\355vna pam\344t \205 nastavenie v\341h, princ\355p v\375poctu kapacity pam\344te.}{section.3}% 20
-\BOOKMARK [2][-]{subsection.3.6}{Neline\341rne dynamick\351 syst\351my: stavov\375 portr\351t, dynamika, typy atraktorov. Hopfieldov model NS: stochastick\341 dynamika, parameter inverznej teploty, princ\355p odstr\341nenia falo\235n\375ch atraktorov.}{section.3}% 21
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Nerekurentn\351 modely}{subsection.3.1}% 17
+\BOOKMARK [2][-]{subsection.3.2}{Rekurentn\351 NS: princ\355p tr\351novania pomocou algoritmu BPTT a RTRL. Pr\355klad pou\236itia.}{section.3}% 18
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Back-propagation through time - BPTT}{subsection.3.2}% 19
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Real-time recurrent learning - RTRL}{subsection.3.2}% 20
+\BOOKMARK [2][-]{subsection.3.3}{Elmanova siet: intern\351 reprezent\341cie pri symbolovej dynamike, Markovovsk\351 spr\341vanie, architektur\341lna predispoz\355cia. Model rekurz\355vnej SOM \(RecSOM\).}{section.3}% 21
+\BOOKMARK [2][-]{subsection.3.4}{Siet s echo stavmi \(ESN\): architekt\372ra, inicializ\341cia, tr\351novanie modelu, vplyv parametrov na vlastnosti rezervo\341ra, echo vlastnost, pam\344tov\341 kapacita.}{section.3}% 22
+\BOOKMARK [2][-]{subsection.3.5}{Hopfieldov model NS: deterministick\341 dynamika, energia syst\351mu, relax\341cia, typy atraktorov, autoasociat\355vna pam\344t \205 nastavenie v\341h, princ\355p v\375poctu kapacity pam\344te.}{section.3}% 23
+\BOOKMARK [2][-]{subsection.3.6}{Neline\341rne dynamick\351 syst\351my: stavov\375 portr\351t, dynamika, typy atraktorov. Hopfieldov model NS: stochastick\341 dynamika, parameter inverznej teploty, princ\355p odstr\341nenia falo\235n\375ch atraktorov.}{section.3}% 24
