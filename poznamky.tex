@@ -31,6 +31,7 @@
 \usepackage{cases}
 \setlength{\headheight}{11pt} % Customize the height of the header
 \usepackage{hyperref}
+\usepackage[top=2cm, bottom=2cm, right=2cm, left=2cm]{geometry}
 \hypersetup{
 colorlinks=true,
 linkcolor=blue,
@@ -88,7 +89,86 @@ To čo vlastne perceptrón spraví je, že rozdelí(klasifikuje) vstupy do dvoch
 \\\\
 V roku 1962 Rosenblatt sformuloval vetu: Nech triedy A a B sú lineárne separoveteľne(existuje nadrovina, ktorá správne oddeli jednu triedu od druhej) potom perceptrón konverguje, tj. nájde deliacu nadrovinu, ktorá rozdelí tieto dáta do dvoch množín.
 \\\\
-Dôkaz: Nech $\alpha = 1$ ... \textcolor{red}{TODO}
+Dôkaz:
+% pouzite video na https://www.youtube.com/watch?v=-j8wi1OLO4Y
+
+Vezmime si dve lineárne separovateľné triedy $C_1$ a $C_2$. Váhy predstavuje matica $w$. Rovnica priamky oddeľujúcej triedy je $\overrightarrow{w}^T\cdot \overrightarrow{x} = 0$.
+
+Máme nejakú trénovaciu množinu $H_1$ ($H_2$), ktorej prvky patria do triedy $C_1$ ($C_2$).
+
+Platí:
+$$\overrightarrow{w}^T \cdot \overrightarrow{x} > 0, \qquad \overrightarrow{x} \in C_1$$
+$$\overrightarrow{w}^T \cdot \overrightarrow{x} \leq 0, \qquad \overrightarrow{x} \in C_2$$
+
+Teraz, weight update algoritmus bude fungovať:
+\begin{enumerate}
+\item Take $\overrightarrow{x}(n)$
+$$\overrightarrow{w}(n+1) = \overrightarrow{w}(n),\qquad ak~ \overrightarrow{w}^T(n)\cdot\overrightarrow{x}(n) > 0 ~\land~ \overrightarrow{x}(n) \in C_1$$
+$$\overrightarrow{w}(n+1) = \overrightarrow{w}(n),\qquad ak~ \overrightarrow{w}^T(n)\cdot\overrightarrow{x}(n) \leq 0 ~\land~ \overrightarrow{x}(n) \in C_2$$
+\item 
+$$\overrightarrow{w}(n+1) = \overrightarrow{w}(n) - \alpha\overrightarrow{x}(n),\qquad ak~ \overrightarrow{w}^T(n)\cdot\overrightarrow{x}(n) > 0 ~\land~ \overrightarrow{x}(n) \in C_2$$
+$$\overrightarrow{w}(n+1) = \overrightarrow{w}(n) + \alpha\overrightarrow{x}(n),\qquad ak~ \overrightarrow{w}^T(n)\cdot\overrightarrow{x}(n) \leq 0 ~\land~ \overrightarrow{x}(n) \in C_1$$
+\end{enumerate}
+
+Proof: 
+
+Assumptions:
+\begin{itemize}
+\item Lineárna separovateľnosť
+\item $\overrightarrow{w}(0) = \overrightarrow{0}$
+\item $\alpha = 1$
+\end{itemize}
+
+Vezmime si $\overrightarrow{x}(n)$ pre $n = 1,2,3 \ldots$ tak, že $\overrightarrow{x}(n) \in H_1$ a zároveň všetky odpredikujeme zle. Teda platí:
+$$\overrightarrow{w}(n+1) = \overrightarrow{w}(n) + \overrightarrow{x}(n)$$
+\begin{equation}\label{eq:1}
+\overrightarrow{w}(n+1) = \overrightarrow{x}(1) + \overrightarrow{x}(2) + \ldots + \overrightarrow{x}(n)
+\end{equation}
+
+Z toho že $C_1$ a $C_2$ sú lineárne separovateľné vyplýva, že existuje riešenie $w_0$, pre ktoré platí:
+$$\overrightarrow{w}_0^T \cdot \overrightarrow{x}(n) > 0, \qquad for~ \overrightarrow{x}(1), \overrightarrow{x}(2), \ldots \overrightarrow{x}(n) \in H_1$$
+Z toho si vyvodíme $a$:
+$$a = \min_{\overrightarrow{x}(n) \in H_1}{\overrightarrow{w}_0^T \cdot\overrightarrow{x}(n)} $$
+Prenásobme rovnicu \ref{eq:1} zľava $\overrightarrow{w}_0^T$:
+$$\overrightarrow{w}_0^T\overrightarrow{w}(n+1) = \overrightarrow{w}^T_0\cdot\overrightarrow{x}(1) + \ldots \overrightarrow{w}_0^T\cdot\overrightarrow{x}(n)$$
+\begin{equation}\label{eq:2}
+\overrightarrow{w}_0^T\overrightarrow{w}(n+1) \geq n\cdot a
+\end{equation}
+Napíšme si teraz Cauchy--Schwarzovu nerovnosť:
+$$\lVert \overrightarrow{w}_0 \rVert^2 \lVert \overrightarrow{w}(n+1) \rVert ^2 \geq [\overrightarrow{w}_0^T \overrightarrow{w}(n+1)]^2$$
+Použitím \ref{eq:2} dostávame:
+$$\lVert \overrightarrow{w}_0 \rVert^2 \lVert \overrightarrow{w}(n+1) \rVert ^2 \geq n^2a^2$$
+Následne upravíme na:
+\begin{equation}\label{eq:3}
+\lVert \overrightarrow{w}(n+1) \rVert ^2 \geq \frac{n^2a^2}{\lVert \overrightarrow{w}_0 \rVert^2}
+\end{equation}
+
+Vďaka \ref{eq:3} máme dolné ohraničenie, ale ešte potrebujeme horné, vezmime si teda alternatívny prístup:
+$$\overrightarrow{w}(k+1) = \overrightarrow{w}(k) + \overrightarrow{x}(k), \qquad for~ k = 1, 2, \ldots n ~\land~ \overrightarrow{x}(k) \in H_1$$
+Squared euclidean norm of:
+$$\lVert \overrightarrow{w}(k+1)\rVert^2 = \lVert \overrightarrow{w}(k)\rVert^2 + \lVert \overrightarrow{x}(k)\rVert^2 + 2\overrightarrow{w}^T(k)\cdot\overrightarrow{x}(k)$$
+Perceptron je zle natrénovaný pred $k = 1,2, \ldots n$ a keďže prvky sú z $H_1$, tak platí $\overrightarrow{w}^T(k)\cdot\overrightarrow{x}(k) < 0$. Potom:
+$$\lVert \overrightarrow{w}(k+1) \rVert^2 \leq \lVert \overrightarrow{w}(k) \rVert^2 + \lVert \overrightarrow{x}(k) \rVert^2$$
+$$\lVert \overrightarrow{w}(k+1) \rVert^2 - \lVert \overrightarrow{w}(k) \rVert^2\leq \lVert \overrightarrow{x}(k) \rVert^2$$
+Teda:
+$$\lVert \overrightarrow{w}(n+1) \rVert^2 \leq \sum_{k=1}^{n} \lVert \overrightarrow{x}(k)\rVert^2 $$
+Vyjadríme si $b$:
+$$b = \max_{\overrightarrow{x}(k) \in H_1}{\lVert \overrightarrow{x}(k) \rVert ^2}$$
+Potom platí:
+\begin{equation}\label{eq:4}
+\lVert \overrightarrow{w}(n+1) \rVert^2 \leq nb
+\end{equation}
+Z rovnice \ref{eq:4} máme horné ohraničenie.
+
+Teraz už len definujeme $n_{max}$, kedy aj pre rovnice \ref{eq:3} aj \ref{eq:4} nastáva rovnosť.
+$$ \frac{n_{max}^2a^2}{\lVert \overrightarrow{w}_0 \rVert^2} = n_{max}b$$
+$$n_{max} = \frac{b\cdot\lVert\overrightarrow{w}_0\rVert^2}{a^2}$$
+
+Juchú. \qed
+
+Pre lepšie pochopenie odporúčam video na youtube, napr.: \url{https://www.youtube.com/watch?v=-j8wi1OLO4Y}.
+
+
 
 \subsection{Spojitý perceptrón: Rôzne aktivačné funkcie perceptrónu, chybová funkcia a spôsob jej minimalizácie, učiace pravidlo, algoritmus trénovania perceptrónu. Súvis s Bayesovským klasifikátorom.}
 Na rozdiel od prahového perceptrónu už nebudeme mať aktivačnú funkciu signum ale použijeme rôzne spojité funkcie napríklad sigmoidu alebo tangens hyperbolický. Sigmoida $\frac{1}{1 + e^{-x}}$ nám dáva výstupy v intervale $[0, 1]$ a tanh $[-1, 1]$.\\
