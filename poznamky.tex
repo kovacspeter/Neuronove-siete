@@ -202,7 +202,7 @@ Algoritmus error backpropagation(spatné šírenie chyby) používame na natrén
 Učiace pravidlá pre výstupnú a skrytú vrstvu sú rozdielne. Odvodiť by sme ich vedeli napríklad tak, že by sme derivovali chybovú funkciu siete. Backpropagation je v podstate to iste ako metóda najväčšieho spádu.
 \begin{itemize}
 \item Výstupná vrstva - $ w_{ik}(t+1) = w_{ik}(t) + \alpha\delta_ih_k $, kde $\delta_i = (d_i - y_i)f_i'$.
-\item Skrytá vrstva - $ v_{kj}(t+1) = v_{ik}(t) + \alpha\delta'_kx_j $, kde $\delta'_k = (\sum_iw_{ik}\delta_i)f_i'$.
+\item Skrytá vrstva - $ v_{kj}(t+1) = v_{ik}(t) + \alpha\delta'_kx_j $, kde $\delta'_k = (\sum_iw_{ik}\delta_i)f_k'$.
 \end{itemize}
 Medzi aplikácie MLP môžeme zaradiť, rozpoznávanie ručne písaných PSČ, spracovanie obrazu(klasifikácia), čítanie anglického textu, etc...
 
@@ -251,8 +251,8 @@ Každý vektor z $X$ vieme jednoznačne rozložiť na $ x = x_{obal} + x_{orto}$
 
 \textbf{Gramm-Schidtov ortogonalizačný proces} vytvorí z báze $u_1, u_2, \dots u_n$ ortogonálnu bázu $v_1, v_2, \dots v_n$ takto:
 $$v_1 = u_1$$
-$$v_2 = u_2 - \frac{v_1^Tu_2}{|v_1|^2}$$
-$$v_k = u_k - \sum_{i=1}^{k-1}{\frac{v_i^Tu_k}{|v_i|^2}}$$
+$$v_2 = u_2 - \frac{v_1^Tu_2}{|v_1|^2}v_1$$
+$$v_k = u_k - \sum_{i=1}^{k-1}{\frac{v_i^Tu_k}{|v_i|^2}v_i}$$
 
 \textbf{General Inverse model}: 
 Na to aby sme pridali ďalší vektor do lineárneho obal nepotrebujeme ho vždy nanovo prepočítať, ale stačí pridať nový vektor pomocou nasledujúceho postupu:
@@ -263,7 +263,7 @@ $$W(0) = 0$$
 
 $$W(n+1) = W(n) + \frac{\widetilde{x}_{n+1} \widetilde{x}_{n+1}^T}{|\widetilde{x}_{n+1}|^2}$$
 
-Kde $\widetilde{x}_{n+1} = x_{n+1} - W_n x_{n+1}$
+Kde $\widetilde{x}_{n+1} = x_{n+1} - W(n) x_{n+1}$
 \\\\
 \textbf{Pamäť korelačnej matice}\\
 \includegraphics[width=8cm]{imgs/cmm}\\
