@@ -31,6 +31,8 @@
 \usepackage{cases}
 \setlength{\headheight}{11pt} % Customize the height of the header
 \usepackage{hyperref}
+\usepackage{float}
+\usepackage{indentfirst}
 \usepackage[top=2cm, bottom=2cm, right=2cm, left=2cm]{geometry}
 \hypersetup{
 colorlinks=true,
@@ -182,7 +184,65 @@ Pri stochastickej verzii sice skonvergujeme ale nemusíme sa dostať až do úpl
 Ako dalšie často používané chybové funkcie môžeme spomenúť cross-entropy chybovú funkciu $$-\sum_p [d^{(p)} ln (y^{(p)}) + (1 - d^{(p)})ln(1-y^{(p)})]$$, ktorú keď minimalizujeme dostaneme opäť rovnaké učiace pravidlo ako pri squared error. Táto funkcia nám vlastne povie s akou pravdepodbnosťou príklad patrí do triedy 1 alebo 0.
 
 Tato chybová funkcia je vhodná pri binárnej klasifikácii. Ďaľšou funkciou je softmax $y_i = \frac{exp(net_i)}{\sum_j exp(net_j)}$, ktorá je vhodná napríklad pri klasifikácii do viacerých tried. Potom nám vlastne hovorí s akou pravdepodobnosťou sample patrí do ktorej triedy.
-\\\\ \textcolor{red}{TODO} súvis s bayes klasifikatorom.
+
+\subsubsection*{Analógia s bayesovským klasifikátorom}
+Vezmime si dve triedy $C_1$ a $C_2$. Nech platí, že majú stredné hodnoty $\mu_1$ a $\mu_2$ a covariance matrix $\Omega$.
+
+Class $C_1$:
+$$E[\overrightarrow{x}] = \overrightarrow{\mu}_1 \qquad E[(\overrightarrow{x} - \overrightarrow{\mu}_1)(\overrightarrow{x} - \overrightarrow{\mu}_1)^T] = \Omega$$
+
+Class $C_2$:
+$$E[\overrightarrow{x}] = \overrightarrow{\mu}_2 \qquad E[(\overrightarrow{x} - \overrightarrow{\mu}_2)(\overrightarrow{x} - \overrightarrow{\mu}_2)^T] = \Omega$$
+
+$\Omega$ is non-singular $\Rightarrow$ exists inverse $\Omega^{-1}$.
+
+Máme náhodné vektory $\overrightarrow{x}$ z gausovského rozdelenia, takže vieme definovať \emph{conditional probability density function}:
+$$f_x(\overrightarrow{x}|C_i) = \frac{1}{(2\pi)^{m/2}(\det \Omega)^{1/2}}\exp\left(-\frac{1}{2}(\overrightarrow{x} - \overrightarrow{\mu}_i)^T\Omega^{-1}(\overrightarrow{x}-\overrightarrow{\mu}_i)\right)$$
+, kde $i \in \{ 1, 2 \}$, $\overrightarrow{x}$ je observation vector a $m$ jeho dimenzionalita.
+
+Assumptions:
+\begin{itemize}
+\item $p_1 = p_2 = \frac{1}{2}$
+\item misclassifications cost: $\omega_{12} = \omega_{21}$ and correct classifications cost $\omega_{11} = \omega_{22} = 0$
+\end{itemize}
+
+\textbf{Bayes classifier}: ``If $p_1(\omega_{21} - \omega_{11})f(\overrightarrow{x} | C_1) > p_2(\omega_{12} - \omega_{22})f(\overrightarrow{x}|C_2)$ holds, assign the observation vector $\overrightarrow{x}$ to $C_1$. Otherwise, assign it to $C_2$.''
+
+Define likelihood ratio $\Lambda(\overrightarrow{x}) = f(\overrightarrow{x}|C_1) / f(\overrightarrow{x} | C_2)$ and threshold $\xi = [p_2(\omega_{12} - \omega_{22})]/[p_1(\omega_{21} - \omega_{11})]$.
+
+Keď si do $\Lambda(\overrightarrow{x})$ dosadíme cpdf tak sa nám prvé ich časti vykrátia, a ostanú iba exponenciálne časti. Následne si chceme vyjadriť logaritmus tohto podielu, takže to skončí ako rozdiel exponentov:
+\begin{align*}
+\log \Lambda(\overrightarrow{x}) &= -\frac{1}{2}(\overrightarrow{x}-\overrightarrow{\mu}_1)^T\Omega^{-1}(\overrightarrow{x}-\overrightarrow{\mu}_1 + \frac{1}{2}(\overrightarrow{x}-\overrightarrow{\mu}_2)^T\Omega^{-1}(\overrightarrow{x}-\overrightarrow{\mu}_2) \\
+&= (\overrightarrow{\mu}_1 - \overrightarrow{\mu}_2)^T\Omega^{-1}\overrightarrow{x} + \frac{1}{2}(\overrightarrow{\mu}_2^T\Omega^{-1}\overrightarrow{\mu}_2 - \overrightarrow{\mu}_1^T\Omega^{-1}\overrightarrow{\mu}_1)\\
+y &= \overrightarrow{w}^T\overrightarrow{x} + b
+\end{align*}
+, kde sme si rôzne časti výslednej rovnice pooznačovali ako $y, w$ a $b$.
+
+Vieme že decision boundary je $\log \Lambda(\overrightarrow{x}) > \log \xi$, keďže v našom prípade je $\xi = 1$, teda $\log \xi = 0$, tak máme decision:
+$$\overrightarrow{w}^T\overrightarrow{x} - b \geq 0$$
+
+log-likelihood test:  If  $y > 0$, then $x \in C_1$, else $C_2$.
+
+Toto sa veľmi podobá na perceptron, ale narozdiel od P vie BC riešiť aj prípady, kedy dve triedy nie sú lineárne separovateľné. Viď obrázok \ref{fig:bc}. Akokoľvek ďaleko by sme dalo $\mu_1$ a $\mu_2$, vždy by boli lineárne neseparovateľné.
+
+\textbf{Comparisions between BC and P:}
+\begin{enumerate}
+\item Perceptron requires linear separability. 
+
+Bayes classifier with Gaussian pdf are non-separable.
+\item Perceptron convergence is non-parametric. 
+
+Bayes classifier is parametric.
+\item Perceptron convergence is adaptive, simple to implement.
+
+Design of BC is fixed.
+\end{enumerate}
+
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{imgs/bc.png}
+\centering
+\caption{BC} \label{fig:bc}
+\end{figure}
 
 \subsection{Viacvrstvové dopredné neurónové siete: architektúra a aktivačné vzorce, odvodenie metódy učenia pomocou spätného šírenia chýb (BP) pre dvojvrstvovú doprednú NS, modifikácie BP, typy úloh pre použitie doprednej NS.}
 \includegraphics[width=12cm]{imgs/2Lmlp}\\
