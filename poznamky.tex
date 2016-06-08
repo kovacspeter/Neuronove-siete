@@ -47,6 +47,10 @@ urlcolor=cyan,
 \definecolor{yellow}{rgb}{0.7,0.7,0}
 \definecolor{red}{rgb}{1,0,0}
 
+\newcommand{\Anchor}[2]{
+  \node (#1) [#2] {};
+}
+
 \title{ Neurónové siete}
 
 \author{Peter Kovács, Marián Margeta, Jakub Pospíchal, Jozef Brandys, Barbora Klembarová}
@@ -239,7 +243,7 @@ Design of BC is fixed.
 \end{enumerate}
 
 \begin{figure}[H]
-\includegraphics[width=\textwidth]{imgs/bc.png}
+\includegraphics[width=0.6\textwidth]{imgs/bc.png}
 \centering
 \caption{BC} \label{fig:bc}
 \end{figure}
@@ -265,6 +269,38 @@ Učiace pravidlá pre výstupnú a skrytú vrstvu sú rozdielne. Odvodiť by sme
 \item Skrytá vrstva - $ v_{kj}(t+1) = v_{ik}(t) + \alpha\delta'_kx_j $, kde $\delta'_k = (\sum_iw_{ik}\delta_i)f_k'$.
 \end{itemize}
 Medzi aplikácie MLP môžeme zaradiť, rozpoznávanie ručne písaných PSČ, spracovanie obrazu(klasifikácia), čítanie anglického textu, etc...
+
+\textbf{Backpropogation z cvík:}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture} 
+    \draw (0,0)  node [draw, minimum height=3.0cm] (x) {$\overrightarrow{x}$};
+    \draw (3,0)  node [draw, minimum height=2.5cm] (a) {$\overrightarrow{a}$};
+    \draw (5,0)  node [draw, minimum height=3.0cm] (h) {$\overrightarrow{h}$};
+    \draw (8,0)  node [draw, minimum height=2.5cm] (b) {$\overrightarrow{b}$};
+    \draw (10,0) node [draw, minimum height=3.0cm] (y) {$\overrightarrow{y}$};
+    
+    \draw[ultra thick] (x) -- (a);
+    \draw (1.5,0) node [anchor = south] {$W_{hid}$};
+    \draw[ultra thick] (a) -- (h);
+    \draw (4.0,0) node [anchor = south] {$f(\cdot)$};
+    \draw[ultra thick] (h) -- (b);
+    \draw (6.5,0) node [anchor = south] {$W_{out}$};
+    \draw[ultra thick] (b) -- (y);
+    \draw (9.0,0) node [anchor = south] {$g(\cdot)$};
+\end{tikzpicture}
+\end{figure}
+
+Forward:
+$$\overrightarrow{h} = f(W_{hid}\overrightarrow{x}) \qquad \overrightarrow{y} = g(W_{out}\overrightarrow{h})$$
+virtual input for the bias term: $x_{n+1} = h_{m+1} = 1$
+
+Back:
+$$\sigma_{out,i} = (y_i-d_i)g'(b_i) \qquad \sigma_{hid,k} = (\sum_i W_{out,i,k}\sigma_{out,i})f'(a_k)$$
+$$W_{out}(t+1) = W_{out}(t) - \alpha\overrightarrow{\sigma}^T_{out}\overrightarrow{h}^T
+\qquad
+W_{hid}(t+1) = W_{hid}(t) - \alpha\overrightarrow{\sigma}^T_{hid}\overrightarrow{x}^T$$
 
 \subsection{Viacvrstvová dopredná NS ako univerzálny aproximátor funkcií (formulácia teorému), trénovacia a testovacia množina, generalizácia, preučenie, skoré zastavenie učenia, selekcia modelu, validácia modelu. Hlboké učenie NS.}
 \includegraphics[width=12cm]{imgs/uni_aprox}\\
