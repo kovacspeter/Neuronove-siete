@@ -47,7 +47,7 @@ urlcolor=cyan,
 
 \title{ Neurónové siete}
 
-\author{Peter Kovács, Marián Margeta, Jakub Pospíchal, Jozef Brandys}
+\author{Peter Kovács, Marián Margeta, Jakub Pospíchal, Jozef Brandys, Barbora Klembarová}
 \date{ }
  
 \begin{document}
@@ -202,7 +202,7 @@ Algoritmus error backpropagation(spatné šírenie chyby) používame na natrén
 Učiace pravidlá pre výstupnú a skrytú vrstvu sú rozdielne. Odvodiť by sme ich vedeli napríklad tak, že by sme derivovali chybovú funkciu siete. Backpropagation je v podstate to iste ako metóda najväčšieho spádu.
 \begin{itemize}
 \item Výstupná vrstva - $ w_{ik}(t+1) = w_{ik}(t) + \alpha\delta_ih_k $, kde $\delta_i = (d_i - y_i)f_i'$.
-\item Skrytá vrstva - $ w_{kj}(t+1) = w_{ik}(t) + \alpha\delta_kx_j $, kde $\delta_k = (\sum_iw_{ik}\delta_i)f_i'$.
+\item Skrytá vrstva - $ v_{kj}(t+1) = v_{ik}(t) + \alpha\delta'_kx_j $, kde $\delta'_k = (\sum_iw_{ik}\delta_i)f_i'$.
 \end{itemize}
 Medzi aplikácie MLP môžeme zaradiť, rozpoznávanie ručne písaných PSČ, spracovanie obrazu(klasifikácia), čítanie anglického textu, etc...
 
@@ -303,9 +303,9 @@ Predpokladajme, že máme jeden neurón s $n$ vstpmi $y = \sum_{j=1}^n w_jx_j = 
 Ojovo pravidlo je pravidlo, ktoré hovorí o zmene váh medzi neurónmi. Je to modifikácia štandardného Hebbovho pravidla a vyzerá nasledovne:
 $$w_j(t+1) = \frac{w_j(t) + \alpha yx_j}{||\textbf{w(t)} + \alpha y\textbf{x}||}$$
 Pre malé $\alpha$ môžeme pomocou taylorovho rozvoja zapísať aj v tvare:
-$$w_j(t+1)= w_j(t)+\alpha yx_j - y^2w_j(t)$$
+$$w_j(t+1)= w_j(t)+\alpha yx_j - \alpha y^2w_j(t)$$
 \\\\
-V prípade jedného neurónu, jeho váhový vektor $w$ konverguje k vlastnému vektoru matice $R<xx^T>$ alebo k prvému hlavnému komponentu. Rozptyl nášho neurónu $\sigma2(n) = <y^2(n)>$, potom konverguje k hlavnému vlastnému číslu.
+V prípade jedného neurónu, jeho váhový vektor $w$ konverguje k vlastnému vektoru matice $R<xx^T>$ alebo k prvému hlavnému komponentu. Rozptyl nášho neurónu $\sigma^2(n) = <y^2(n)>$, potom konverguje k hlavnému vlastnému číslu.
 \textcolor{red}{TODO konvergencia nedostatočná}
 
 \subsection{Metóda hlavných komponentov pomocou algoritmu GHA a APEX, architektúra modelu, vzťah pre adaptáciu váh, pojem vlastných vektorov a vlastných čísel, redukcia dimenzie, aplikácia na kompresiu obrazu.}
